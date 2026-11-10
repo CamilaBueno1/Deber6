@@ -11,9 +11,14 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
-type Props = { movimiento: Movimiento; onEdit: () => void; onDelete: () => void };
+type Props = {
+  movimiento: Movimiento;
+  onEdit: () => void;
+  onDelete: () => void;
+  readOnly?: boolean;
+};
 
-export default function MovimientoRow({ movimiento, onEdit, onDelete }: Props) {
+export default function MovimientoRow({ movimiento, onEdit, onDelete, readOnly = false }: Props) {
   const t = TIPOS[movimiento.tipo];
   const opacity = useSharedValue(1);
   const translateX = useSharedValue(-8);
@@ -55,26 +60,28 @@ export default function MovimientoRow({ movimiento, onEdit, onDelete }: Props) {
           {t.signo}
           {money(movimiento.monto)}
         </Text>
-        <View className="flex-row items-center gap-1.5">
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={`Editar ${movimiento.concepto}`}
-            onPress={onEdit}
-            hitSlop={6}
-            className="h-8 w-8 items-center justify-center rounded-full bg-[#f4efe4] active:opacity-70"
-          >
-            <Ionicons name="create-outline" size={16} color="#5d706c" />
-          </Pressable>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={`Eliminar ${movimiento.concepto}`}
-            onPress={onDelete}
-            hitSlop={6}
-            className="h-8 w-8 items-center justify-center rounded-full bg-[#fdf3f0] active:opacity-70"
-          >
-            <Ionicons name="trash-outline" size={16} color="#d66a54" />
-          </Pressable>
-        </View>
+        {!readOnly ? (
+          <View className="flex-row items-center gap-1.5">
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={`Editar ${movimiento.concepto}`}
+              onPress={onEdit}
+              hitSlop={6}
+              className="h-8 w-8 items-center justify-center rounded-full bg-[#f4efe4] active:opacity-70"
+            >
+              <Ionicons name="create-outline" size={16} color="#5d706c" />
+            </Pressable>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={`Eliminar ${movimiento.concepto}`}
+              onPress={onDelete}
+              hitSlop={6}
+              className="h-8 w-8 items-center justify-center rounded-full bg-[#fdf3f0] active:opacity-70"
+            >
+              <Ionicons name="trash-outline" size={16} color="#d66a54" />
+            </Pressable>
+          </View>
+        ) : null}
       </View>
     </Animated.View>
   );

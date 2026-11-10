@@ -27,6 +27,19 @@ export async function obtenerJornada(negocioId: string, fecha: string): Promise<
   return data ? normalizar(data) : null;
 }
 
+export async function obtenerJornadaAnterior(negocioId: string, fecha: string): Promise<Jornada | null> {
+  const { data, error } = await supabase
+    .from('jornadas')
+    .select('*')
+    .eq('negocio_id', negocioId)
+    .lt('fecha', fecha)
+    .order('fecha', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (error) throw error;
+  return data ? normalizar(data) : null;
+}
+
 export async function abrirJornada(negocioId: string, fecha: string, capitalInicio: number) {
   const { error } = await supabase
     .from('jornadas')

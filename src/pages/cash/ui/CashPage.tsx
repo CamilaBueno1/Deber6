@@ -86,7 +86,7 @@ function QuickMovementButton({
 export default function CajaScreen() {
   const router = useRouter();
   const { selected } = useNegocio();
-  const { movimientos, jornada, recargar } = useCajaDelDia(selected?.id);
+  const { movimientos, jornada, capitalSugerido, recargar } = useCajaDelDia(selected?.id);
   const { movimientos: movimientosRecientes, recargar: recargarRecientes } = useDashboardData(selected?.id);
   const [form, setForm] = useState<FormState>(null);
   const [guardando, setGuardando] = useState(false);
@@ -117,6 +117,7 @@ export default function CajaScreen() {
   const resumenDia = calcularPulso(movimientos);
   const inicio = jornada?.capital_inicio ?? 0;
   const cajaFinal = inicio + ventas - gastos - compras;
+  const capitalParaAbrir = capitalSugerido ?? selected.capital_inicial;
   const ventasSinCostoRecientes = movimientosRecientes.filter(
     (movimiento) =>
       movimiento.tipo === 'venta' &&
@@ -218,7 +219,18 @@ export default function CajaScreen() {
         ) : null}
 
         {!jornada ? (
-          <OpenDayCard negocioId={selected.id} sugerido={selected.capital_inicial} onDone={recargar} />
+          <>
+            {ventas > 0 ? (
+              <Card className="gap-1">
+                <Text className="text-sm font-bold text-[#243b38]">Ventas registradas hoy</Text>
+                <Text className="text-xs leading-5 text-[#71817b]">
+                  Ya se registraron {money(ventas)} en Vender. Al iniciar la jornada, estas ventas
+                  aparecerán en el balance junto con el capital de apertura.
+                </Text>
+              </Card>
+            ) : null}
+            <OpenDayCard negocioId={selected.id} sugerido={capitalParaAbrir} onDone={recargar} />
+          </>
         ) : (
           <>
             <DaySummary
@@ -270,6 +282,7 @@ export default function CajaScreen() {
                   <MovimientoRow
                     key={m.id}
                     movimiento={m}
+                    readOnly={m.origen === 'venta'}
                     onEdit={() => setForm({ tipo: m.tipo, movimiento: m })}
                     onDelete={() => borrar(m)}
                   />

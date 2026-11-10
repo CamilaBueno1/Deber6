@@ -1,7 +1,7 @@
 import { diasAtras, hoy } from '@/shared/lib/date';
 import { showError } from '@/shared/lib/notify';
 import { listarJornadas } from '@/entities/cash/api/jornadas';
-import { listarMovimientos } from '@/entities/cash/api/movimientos';
+import { listarActividadCaja } from '@/entities/cash/api/movimientos';
 import type { Jornada, Movimiento } from '@/shared/types';
 import { useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
@@ -21,7 +21,7 @@ export function useDashboardData(negocioId?: string) {
       const desde = diasAtras(6);
       const hasta = hoy();
       const [movs, jors] = await Promise.all([
-        listarMovimientos(negocioId, desde, hasta),
+        listarActividadCaja(negocioId, desde, hasta),
         listarJornadas(negocioId, desde, hasta),
       ]);
       setMovimientos(movs);

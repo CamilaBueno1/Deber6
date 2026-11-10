@@ -58,8 +58,8 @@ export default function OpenDayCard({ negocioId, sugerido, onDone }: Props) {
       </View>
 
       <Text className="text-sm leading-5 text-[#5d706c]">
-        Cuenta el dinero con el que abres tu caja hoy.
-        {sugerido > 0 ? ` Tu saldo anterior fue de ${money(sugerido)}.` : ''}
+        Cuenta el efectivo con el que empiezas hoy. El valor sugerido es una referencia; ajústalo
+        según el dinero que tengas realmente en caja.
       </Text>
 
       <Input

@@ -83,7 +83,10 @@ export default function AppLayout() {
           name="index"
           options={{ title: 'Inicio', tabBarIcon: icono('analytics-outline', 'analytics') }}
         />
-        <Tabs.Screen name="caja" options={{ href: null }} />
+        <Tabs.Screen
+          name="caja"
+          options={{ title: 'Caja', tabBarIcon: icono('wallet-outline', 'wallet') }}
+        />
         <Tabs.Screen
           name="vender"
           options={{ title: 'Vender', tabBarIcon: icono('cart-outline', 'cart') }}

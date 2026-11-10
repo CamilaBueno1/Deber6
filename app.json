@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "StockYa",
-    "slug": "emprendegest",
+    "slug": "stockya",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -59,8 +59,9 @@
         "root": "app"
       },
       "eas": {
-        "projectId": "742eaea4-9d9d-4773-b165-5f552477692b"
+        "projectId": "861404a8-6256-4010-a24a-ab2c7931cb97"
       }
-    }
+    },
+    "owner": "mila1205"
   }
 }

@@ -72,6 +72,7 @@ export type Movimiento = {
   monto: number;
   costo_directo: number | null;
   created_at: string;
+  origen?: 'venta';
 };
 export type MovimientoInput = {
   tipo: Tipo;

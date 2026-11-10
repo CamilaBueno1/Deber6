@@ -173,9 +173,6 @@ function ProfileDetails({ session }: { session: Session }) {
   const iniciales = inicialesUsuario(session);
   const [nombre, setNombre] = useState(nombreActual);
   const [loading, setLoading] = useState(false);
-  const [nuevaClave, setNuevaClave] = useState('');
-  const [confirmarClave, setConfirmarClave] = useState('');
-  const [guardandoClave, setGuardandoClave] = useState(false);
 
   const heroO = useSharedValue(1);
   const heroY = useSharedValue(-12);
@@ -205,24 +202,6 @@ function ProfileDetails({ session }: { session: Session }) {
       showError(error, 'No pudimos actualizar tu nombre');
     } finally {
       setLoading(false);
-    }
-  };
-
-  const cambiarClave = async () => {
-    if (nuevaClave.length < 6) return aviso('La contraseña debe tener al menos 6 caracteres.');
-    if (nuevaClave !== confirmarClave) return aviso('Las contraseñas no coinciden.');
-
-    setGuardandoClave(true);
-    try {
-      const { error } = await supabase.auth.updateUser({ password: nuevaClave });
-      if (error) return showError(error, 'No pudimos cambiar la contraseña');
-      setNuevaClave('');
-      setConfirmarClave('');
-      aviso('Tu contraseña se actualizó correctamente.', 'Contraseña actualizada');
-    } catch (error) {
-      showError(error, 'No pudimos cambiar la contraseña');
-    } finally {
-      setGuardandoClave(false);
     }
   };
 
@@ -319,44 +298,6 @@ function ProfileDetails({ session }: { session: Session }) {
           icon="checkmark-circle-outline"
           onPress={guardarNombre}
           loading={loading}
-        />
-      </Card>
-
-      <Card delay={170} className="gap-3.5">
-        <View className="flex-row items-center gap-2.5">
-          <View className="h-9 w-9 items-center justify-center rounded-xl bg-[#fff2d7]">
-            <Ionicons name="lock-closed" size={17} color="#9a6b19" />
-          </View>
-          <View className="flex-1">
-            <Text className="text-base font-extrabold text-[#243b38]">Cambiar contraseña</Text>
-            <Text className="text-xs text-[#71817b]">Actualiza la clave de acceso a tu cuenta.</Text>
-          </View>
-        </View>
-        <Input
-          label="Nueva contraseña"
-          icon="lock-closed-outline"
-          placeholder="Mínimo 6 caracteres"
-          secureTextEntry
-          autoComplete="new-password"
-          value={nuevaClave}
-          onChangeText={setNuevaClave}
-          returnKeyType="next"
-        />
-        <Input
-          label="Confirmar nueva contraseña"
-          icon="shield-checkmark-outline"
-          placeholder="Escríbela nuevamente"
-          secureTextEntry
-          autoComplete="new-password"
-          value={confirmarClave}
-          onChangeText={setConfirmarClave}
-          returnKeyType="done"
-        />
-        <Button
-          title="Actualizar contraseña"
-          icon="key-outline"
-          onPress={() => void cambiarClave()}
-          loading={guardandoClave}
         />
       </Card>
 
