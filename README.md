@@ -10,13 +10,16 @@ StockYa es una aplicación móvil para que pequeños negocios gestionen sus prod
 - Apertura, seguimiento y cierre de la caja diaria
 - Resumen de actividad y ventas
 - Lista de reposición para compartir
-- Acceso y gestión de cuenta
+- Acceso y gestión de cuenta, incluyendo cambio de contraseña con sesión iniciada
+- Animaciones Lottie específicas para inicio, caja, ventas, inventario, negocios y perfil
 
 ## Tecnologías
 
 - Expo y React Native
 - Expo Router
 - TypeScript
+- UniWind para estilos de la interfaz móvil
+- Lottie para ilustraciones animadas por sección
 - React Native Reanimated
 - Vite y React para el sitio auxiliar de confirmación de cuenta
 

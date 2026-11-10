@@ -167,7 +167,7 @@ export default function InventarioScreen() {
         showsVerticalScrollIndicator={false}
       >
         <SectionLottie
-          variant="growth"
+          variant="store"
           title="Cada producto en su lugar"
           caption="Controla cantidades, precios y lo que necesitas reponer."
         />
