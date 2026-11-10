@@ -1,47 +1,75 @@
 # StockYa
 
-Tu tienda en el bolsillo: registra productos, vende en pocos toques y mantén el stock bajo control. StockYa incluye inventario por negocio, alertas visuales, ventas rápidas, reposición compartible y un resumen diario de ventas y ganancia aproximada.
+StockYa es una aplicación móvil para que pequeños negocios gestionen sus productos, ventas y caja diaria desde un mismo lugar.
+
+## Funcionalidades
+
+- Inventario organizado por negocio y categoría
+- Seguimiento de existencias y alertas de stock bajo
+- Registro de ventas, compras y gastos
+- Apertura, seguimiento y cierre de la caja diaria
+- Resumen de actividad y ventas
+- Lista de reposición para compartir
+- Acceso y gestión de cuenta
+
+## Tecnologías
+
+- Expo y React Native
+- Expo Router
+- TypeScript
+- React Native Reanimated
+- Vite y React para el sitio auxiliar de confirmación de cuenta
+
+## Estructura
+
+```text
+.
+├── app/                 # Rutas de la aplicación móvil
+├── src/
+│   ├── entities/        # Modelos y acceso a datos
+│   ├── features/        # Flujos y funcionalidades del producto
+│   ├── pages/           # Pantallas de la aplicación
+│   ├── shared/          # Componentes, tipos y utilidades compartidos
+│   └── widgets/         # Secciones compuestas de la interfaz
+├── apps/web/            # Sitio auxiliar de cuenta
+├── assets/              # Imágenes y recursos visuales
+└── package.json         # Dependencias y comandos
+```
 
 ## Requisitos
 
 - Node.js y npm
-- Proyecto de Supabase
-- Android Studio para generar e instalar el build de desarrollo Android (o configurar Expo EAS para compilar en la nube)
+- Un archivo `.env` con las variables de entorno proporcionadas para el proyecto
 
-## Arquitectura
+## Instalación y ejecución
 
-El código sigue la estructura FSD del proyecto de referencia. `app/` conserva rutas delgadas de Expo Router y delega cada pantalla en `src/pages/`:
+Instala las dependencias:
 
-- `src/app/providers/`: sesión, guard de acceso y layouts de navegación.
-- `src/pages/`: pantallas de inicio, autenticación, inventario, caja y ventas.
-- `src/entities/`: modelos y acceso a datos de negocio, sesión, inventario y ventas.
-- `src/features/`: flujos de autenticación y gestión de productos, negocios y caja.
-- `src/widgets/`: encabezado y secciones compuestas del dashboard.
-- `src/shared/`: interfaz reutilizable, utilidades, tipos y configuración compartidos.
-- `apps/web/`: sitio independiente de confirmación y recuperación de cuenta.
+```bash
+npm install
+```
 
-## Ejecutar
+Inicia Expo:
 
-1. Instala las dependencias:
+```bash
+npx expo start
+```
 
-   ```bash
-   npm install
-   ```
+También puedes usar los comandos definidos en `package.json`:
 
-2. Copia `.env.example` a `.env` y completa la URL y la clave publicable de tu proyecto Supabase. Es un solo `.env` para Expo y la web; consulta [`apps/web/README.md`](./apps/web/README.md) si ya configuraste también variables `VITE_...`.
-3. En un proyecto Supabase nuevo, abre **SQL Editor**, pega y ejecuta [`supabase/schema.sql`](./supabase/schema.sql). Si ya tienes StockYa instalado en Supabase, no vuelvas a ejecutar todo el esquema: ejecuta una vez [`supabase/migrations/20261110000000_sales_category_snapshot.sql`](./supabase/migrations/20261110000000_sales_category_snapshot.sql) para guardar la categoría en cada nueva venta y habilitar el ranking histórico.
-4. Inicia Expo:
+```bash
+npm run android
+npm run ios
+npm run web
+```
 
-   ```bash
-   npx expo start
-   ```
+## Sitio auxiliar
 
-El inicio de sesión con correo y contraseña funciona en Expo Go. Para probar Google desde Expo Go, inicia el servidor con `npx expo start --tunnel` y permite en Supabase el redirect exacto que imprime la app como `StockYa Supabase redirect_to:`. Si el retorno no abre StockYa, usa un development build con el esquema `emprendegest://`.
+El proyecto incluye un sitio web independiente en [`apps/web/`](./apps/web/) para los flujos de confirmación de cuenta y recuperación de acceso. Su configuración y ejecución están documentadas en [`apps/web/README.md`](./apps/web/README.md).
 
-Para validar el proyecto después de hacer cambios:
+## Validación
 
 ```bash
 npm run lint
 npx tsc --noEmit
 ```
-
