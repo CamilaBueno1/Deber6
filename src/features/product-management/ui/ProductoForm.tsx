@@ -119,14 +119,16 @@ export default function ProductoForm({
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <View className="flex-1 justify-end bg-black/50">
           <ScrollView
             className="w-full rounded-t-[30px] border border-white bg-[#fffefa] px-5 pt-3"
             contentContainerClassName="gap-3.5 pb-8"
-            style={{ maxHeight: '92%' }}
+            style={{ maxHeight: '92%', flexShrink: 1 }}
             keyboardShouldPersistTaps="always"
+            keyboardDismissMode={Platform.OS === 'ios' ? 'interactive' : 'on-drag'}
+            showsVerticalScrollIndicator={false}
           >
             <View className="mb-1 h-1.5 w-12 self-center rounded-full bg-[#ddd5c7]" />
             <View className="flex-row items-center justify-between">
