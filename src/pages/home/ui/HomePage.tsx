@@ -9,8 +9,7 @@ import SectionLottie from '@/shared/ui/SectionLottie';
 import WelcomeSplash from '@/features/auth/ui/WelcomeSplash';
 import { useAuth } from '@/entities/session/model/AuthContext';
 import { useNegocio } from '@/features/business-management/model/NegocioContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { flags, GOOGLE_WELCOME_STORAGE_KEY } from '@/features/auth/model/flags';
+import { flags } from '@/features/auth/model/flags';
 import { useStockData } from '@/widgets/product-overview/model/useStockData';
 import { useCategorySales } from '@/widgets/dashboard/model/useCategorySales';
 import { fechaLarga, hoy } from '@/shared/lib/date';
@@ -64,14 +63,14 @@ function StockBajoRow({ producto }: { producto: Producto }) {
         />
       </View>
       <View className="flex-1">
-        <Text className="text-sm font-bold text-[#344b47]" numberOfLines={1}>
+        <Text className="text-sm font-bold text-[#5A3D35]" numberOfLines={1}>
           {producto.nombre}
         </Text>
-        <Text className="text-[11px] text-[#879792]">
+        <Text className="text-[11px] text-[#867A72]">
           Mínimo: {producto.stock_minimo} · Quedan: {producto.stock}
         </Text>
       </View>
-      <Ionicons name="chevron-forward" size={16} color="#9aa7a1" />
+      <Ionicons name="chevron-forward" size={16} color="#A99389" />
     </Pressable>
   );
 }
@@ -103,7 +102,7 @@ function DashboardHero({
 
   return (
     <LinearGradient
-      colors={['#125b49', '#16896a', '#36aa77']}
+      colors={['#F7D6C3', '#FBE6C9', '#FBE9DD']}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
       style={{
@@ -111,9 +110,9 @@ function DashboardHero({
         overflow: 'hidden',
         borderRadius: 28,
         borderWidth: 1,
-        borderColor: '#76c895',
+        borderColor: '#F1CDB9',
         padding: 18,
-        shadowColor: '#125b49',
+        shadowColor: '#A95743',
         shadowOffset: { width: 0, height: 8 },
         shadowOpacity: 0.22,
         shadowRadius: 15,
@@ -129,7 +128,7 @@ function DashboardHero({
           width: 175,
           height: 175,
           borderRadius: 100,
-          backgroundColor: 'rgba(255,255,255,0.07)',
+          backgroundColor: 'rgba(255,255,255,0.42)',
         }}
       />
       <View
@@ -141,7 +140,7 @@ function DashboardHero({
           width: 126,
           height: 126,
           borderRadius: 100,
-          backgroundColor: 'rgba(255,200,87,0.16)',
+          backgroundColor: 'rgba(249,194,127,0.23)',
         }}
       />
       <Pressable
@@ -153,16 +152,16 @@ function DashboardHero({
         className="flex-1 flex-row items-center justify-between"
       >
         <View className="flex-1 gap-2 pr-2">
-          <View           className="self-start flex-row items-center gap-1.5 rounded-full border border-white/20 bg-[#0e4d3e]/65 px-2.5 py-1">
-            <View className={`h-1.5 w-1.5 rounded-full ${todoEnOrden ? 'bg-[#a9e7a1]' : 'bg-[#ffc857]'}`} />
-            <Text className="text-[10px] font-extrabold uppercase tracking-wider text-[#e2f0e2]">
+          <View className="self-start flex-row items-center gap-1.5 rounded-full border border-[#EBC7B3] bg-white/70 px-2.5 py-1">
+            <View className={`h-1.5 w-1.5 rounded-full ${todoEnOrden ? 'bg-[#D97955]' : 'bg-[#E9A15B]'}`} />
+            <Text className="text-[10px] font-extrabold uppercase tracking-wider text-[#8B5147]">
               {todoEnOrden ? 'Stock bajo control' : `${productosBajos} por reponer`}
             </Text>
           </View>
-          <Text className="text-[22px] font-extrabold leading-7 tracking-tight text-white">
+          <Text className="text-[22px] font-extrabold leading-7 tracking-tight text-[#493A36]">
             Tu tienda,{'\n'}siempre en marcha.
           </Text>
-          <Text className="text-xs leading-4 text-[#d8eade]" numberOfLines={1}>
+          <Text className="text-xs leading-4 text-[#765F57]" numberOfLines={1}>
             {negocio} · {todoEnOrden ? 'Todo listo para vender' : 'Toca para revisar tu inventario'}
           </Text>
         </View>
@@ -174,17 +173,17 @@ function DashboardHero({
               alignItems: 'center',
               justifyContent: 'center',
               borderWidth: 1,
-              borderColor: 'rgba(255,255,255,0.48)',
+              borderColor: 'rgba(255,255,255,0.8)',
               borderRadius: 27,
-              backgroundColor: '#e4f7dc',
-              shadowColor: '#0d493b',
+              backgroundColor: '#FFF7F0',
+              shadowColor: '#8B5147',
               shadowOffset: { width: 0, height: 8 },
               shadowOpacity: 0.22,
               shadowRadius: 12,
               elevation: 4,
             }}
           >
-            <Ionicons name="storefront" size={39} color="#286c53" />
+            <Ionicons name="storefront" size={39} color="#A95743" />
             <View
               style={{
                 position: 'absolute',
@@ -195,12 +194,12 @@ function DashboardHero({
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderWidth: 2,
-                borderColor: '#16896a',
+                borderColor: '#FFF7F0',
                 borderRadius: 15,
-                backgroundColor: todoEnOrden ? '#ffc857' : '#f17c5b',
+                backgroundColor: todoEnOrden ? '#FFD58F' : '#E9A15B',
               }}
             >
-              <Ionicons name={todoEnOrden ? 'sparkles' : 'alert'} size={15} color="#fffaf0" />
+              <Ionicons name={todoEnOrden ? 'sparkles' : 'alert'} size={15} color="#493A36" />
             </View>
           </View>
         </Animated.View>
@@ -216,7 +215,7 @@ export default function InicioScreen() {
   const { productos, ventas, loading } = useStockData(selected?.id);
   const { categorias: categoriasVendidas, loading: cargandoCategorias } = useCategorySales(selected?.id);
   const [mostrarMeta, setMostrarMeta] = useState(false);
-  const [mostrarBienvenida, setMostrarBienvenida] = useState(false);
+  const [bienvenidaCerrada, setBienvenidaCerrada] = useState(false);
   const metaCelebrada = useRef<string | null>(null);
 
   const ventasHoy = useMemo(() => ventas.reduce((total, venta) => total + venta.total, 0), [ventas]);
@@ -237,40 +236,7 @@ export default function InicioScreen() {
   const progreso = metaDiaria > 0 ? Math.min(ventasHoy / metaDiaria, 1) : 1;
   const excedioMeta = ventasHoy > metaDiaria && ventasHoy > 0;
   const nombre = nombreUsuario(session);
-
-  useEffect(() => {
-    if (!session) return;
-    let active = true;
-
-    const showWelcome = () => {
-      flags.welcomeShown = true;
-      setMostrarBienvenida(true);
-    };
-
-    if (!flags.welcomeShown) {
-      showWelcome();
-      AsyncStorage.removeItem(GOOGLE_WELCOME_STORAGE_KEY).catch((error: unknown) => {
-        showError(error, 'No pudimos limpiar el estado de bienvenida');
-      });
-      return () => {
-        active = false;
-      };
-    }
-
-    AsyncStorage.getItem(GOOGLE_WELCOME_STORAGE_KEY)
-      .then(async (pendingWelcome) => {
-        if (!active || pendingWelcome !== 'true') return;
-        await AsyncStorage.removeItem(GOOGLE_WELCOME_STORAGE_KEY);
-        if (active) showWelcome();
-      })
-      .catch((error: unknown) => {
-        if (active) showError(error, 'No pudimos recuperar la bienvenida');
-      });
-
-    return () => {
-      active = false;
-    };
-  }, [session]);
+  const mostrarBienvenida = Boolean(session && !flags.welcomeShown && !bienvenidaCerrada);
 
   useEffect(() => {
     if (!selected || !excedioMeta) return;
@@ -296,7 +262,7 @@ export default function InicioScreen() {
   };
 
   return (
-    <View className="flex-1 bg-[#f3f8f2]">
+    <View className="flex-1 bg-[#FFFAF5]">
       <Header
         eyebrow={fechaLarga()}
         title={`Hola, ${nombre}`}
@@ -343,9 +309,9 @@ export default function InicioScreen() {
               <Pressable
                 accessibilityRole="button"
                 onPress={() => router.push('/vender')}
-                className="flex-1 flex-row items-center justify-center gap-2 rounded-2xl bg-[#16896a] px-3 py-4 active:opacity-80"
+                className="flex-1 flex-row items-center justify-center gap-2 rounded-2xl bg-[#D97955] px-3 py-4 active:opacity-80"
                 style={{
-                  shadowColor: '#16896a',
+                  shadowColor: '#D97955',
                   shadowOffset: { width: 0, height: 4 },
                   shadowOpacity: 0.18,
                   shadowRadius: 8,
@@ -358,10 +324,10 @@ export default function InicioScreen() {
               <Pressable
                 accessibilityRole="button"
                 onPress={() => router.push('/inventario')}
-                className="flex-row items-center justify-center gap-2 rounded-2xl border border-[#e5e8df] bg-[#fffefa] px-4 py-4 active:opacity-80"
+                className="flex-row items-center justify-center gap-2 rounded-2xl border border-[#EFE3DA] bg-[#FFFFFF] px-4 py-4 active:opacity-80"
               >
-                <Ionicons name="cube-outline" size={20} color="#16896a" />
-                <Text className="text-sm font-extrabold text-[#16896a]">Inventario</Text>
+                <Ionicons name="cube-outline" size={20} color="#D97955" />
+                <Text className="text-sm font-extrabold text-[#D97955]">Inventario</Text>
               </Pressable>
             </View>
             </SectionEntrance>
@@ -369,53 +335,53 @@ export default function InicioScreen() {
             <Card delay={140} className="gap-4 overflow-hidden">
               <View className="flex-row items-start justify-between">
                 <View>
-                  <Text className="text-xs font-bold uppercase tracking-wider text-[#71817b]">
+                  <Text className="text-xs font-bold uppercase tracking-wider text-[#756B65]">
                     Ventas de hoy
                   </Text>
-                  <Text className="mt-1 text-3xl font-black text-[#243b38]">{money(ventasHoy)}</Text>
+                  <Text className="mt-1 text-3xl font-black text-[#493A36]">{money(ventasHoy)}</Text>
                 </View>
-                <View className="h-11 w-11 items-center justify-center rounded-2xl bg-[#e6f0e9]">
-                  <Ionicons name="trending-up" size={22} color="#246b61" />
+                <View className="h-11 w-11 items-center justify-center rounded-2xl bg-[#F4E7DC]">
+                  <Ionicons name="trending-up" size={22} color="#8B563D" />
                 </View>
               </View>
 
-              <View className="flex-row items-center justify-between rounded-2xl bg-[#f4efe4] px-3.5 py-3">
+              <View className="flex-row items-center justify-between rounded-2xl bg-[#F8EDE0] px-3.5 py-3">
                 <View className="flex-1">
-                  <Text className="text-[11px] font-bold uppercase tracking-wide text-[#71817b]">
+                  <Text className="text-[11px] font-bold uppercase tracking-wide text-[#756B65]">
                     Ganancia aproximada
                   </Text>
-                  <Text className="mt-0.5 text-lg font-extrabold text-[#246b61]">
+                  <Text className="mt-0.5 text-lg font-extrabold text-[#8B563D]">
                     {money(ganancia)}
                   </Text>
                 </View>
                 <View className="h-9 w-px bg-[#dfd7c8]" />
                 <View className="flex-1 items-end">
-                  <Text className="text-[11px] font-bold uppercase tracking-wide text-[#71817b]">
+                  <Text className="text-[11px] font-bold uppercase tracking-wide text-[#756B65]">
                     Producto estrella
                   </Text>
-                  <Text className="mt-0.5 max-w-full text-right text-sm font-extrabold text-[#243b38]" numberOfLines={1}>
+                  <Text className="mt-0.5 max-w-full text-right text-sm font-extrabold text-[#493A36]" numberOfLines={1}>
                     {estrella?.nombre ?? 'Sin ventas'}
                   </Text>
                   {estrella ? (
-                    <Text className="text-[10px] text-[#71817b]">{estrella.cantidad} vendidos</Text>
+                    <Text className="text-[10px] text-[#756B65]">{estrella.cantidad} vendidos</Text>
                   ) : null}
                 </View>
               </View>
 
               <View className="gap-2">
                 <View className="flex-row items-center justify-between">
-                  <Text className="text-xs font-bold text-[#5d706c]">Meta diaria</Text>
-                  <Text className={`text-xs font-extrabold ${excedioMeta ? 'text-[#246b61]' : 'text-[#5d706c]'}`}>
+                  <Text className="text-xs font-bold text-[#6E625C]">Meta diaria</Text>
+                  <Text className={`text-xs font-extrabold ${excedioMeta ? 'text-[#8B563D]' : 'text-[#6E625C]'}`}>
                     {money(ventasHoy)} / {money(metaDiaria)}
                   </Text>
                 </View>
                 <View className="h-2.5 overflow-hidden rounded-full bg-[#ece6d9]">
                   <View
-                    className="h-full rounded-full bg-[#348a76]"
+                    className="h-full rounded-full bg-[#D97955]"
                     style={{ width: `${Math.round(progreso * 100)}%` }}
                   />
                 </View>
-                <Text className="text-[11px] text-[#879792]">
+                <Text className="text-[11px] text-[#867A72]">
                   {excedioMeta
                     ? '¡Meta superada! Sigue así.'
                     : `Te faltan ${money(Math.max(metaDiaria - ventasHoy, 0))} para alcanzar tu meta.`}
@@ -428,8 +394,8 @@ export default function InicioScreen() {
             <Card delay={220} className="gap-1">
               <View className="mb-1 flex-row items-center justify-between">
                 <View>
-                  <Text className="text-base font-extrabold text-[#243b38]">Semáforo de stock</Text>
-                  <Text className="text-xs text-[#71817b]">
+                  <Text className="text-base font-extrabold text-[#493A36]">Semáforo de stock</Text>
+                  <Text className="text-xs text-[#756B65]">
                     {bajos.length === 0
                       ? 'Tus productos están por encima del mínimo.'
                       : `${bajos.length} ${bajos.length === 1 ? 'producto necesita' : 'productos necesitan'} reposición.`}
@@ -439,17 +405,17 @@ export default function InicioScreen() {
                   accessibilityRole="button"
                   accessibilityLabel="Ver inventario completo"
                   onPress={() => router.push('/inventario')}
-                  className="h-9 w-9 items-center justify-center rounded-full bg-[#eef5f0]"
+                  className="h-9 w-9 items-center justify-center rounded-full bg-[#FFF1E8]"
                 >
-                  <Ionicons name="arrow-forward" size={17} color="#246b61" />
+                  <Ionicons name="arrow-forward" size={17} color="#8B563D" />
                 </Pressable>
               </View>
               {loading ? (
-                <Text className="py-3 text-center text-xs text-[#879792]">Actualizando stock...</Text>
+                <Text className="py-3 text-center text-xs text-[#867A72]">Actualizando stock...</Text>
               ) : bajos.length === 0 ? (
                 <View className="flex-row items-center gap-2 border-t border-[#eee8dc] py-3">
-                  <Ionicons name="checkmark-circle" size={19} color="#348a76" />
-                  <Text className="text-xs font-semibold text-[#246b61]">
+                  <Ionicons name="checkmark-circle" size={19} color="#D97955" />
+                  <Text className="text-xs font-semibold text-[#8B563D]">
                     {productos.length === 0 ? 'Agrega productos para ver su estado.' : 'Todo en orden.'}
                   </Text>
                 </View>
@@ -459,12 +425,12 @@ export default function InicioScreen() {
                     <StockBajoRow key={producto.id} producto={producto} />
                   ))}
                   {bajos.length > 3 ? (
-                    <Text className="pt-1 text-center text-[11px] font-semibold text-[#71817b]">
+                    <Text className="pt-1 text-center text-[11px] font-semibold text-[#756B65]">
                       +{bajos.length - 3} productos por revisar
                     </Text>
                   ) : null}
                   <Button
-                    title="Compartir lista de reposición"
+                    title="Compartir"
                     icon="share-social-outline"
                     variant="outline"
                     size="sm"
@@ -477,8 +443,8 @@ export default function InicioScreen() {
             <Card delay={300} className="gap-2">
               <View className="flex-row items-center justify-between">
                 <View>
-                  <Text className="text-base font-extrabold text-[#243b38]">Ventas recientes</Text>
-                  <Text className="text-xs text-[#71817b]">{fechaLarga()}</Text>
+                  <Text className="text-base font-extrabold text-[#493A36]">Ventas recientes</Text>
+                  <Text className="text-xs text-[#756B65]">{fechaLarga()}</Text>
                 </View>
                 <View className="h-9 w-9 items-center justify-center rounded-xl bg-[#f7efd9]">
                   <Ionicons name="receipt-outline" size={18} color="#9a6b19" />
@@ -486,8 +452,8 @@ export default function InicioScreen() {
               </View>
               {ventas.slice(0, 4).length === 0 ? (
                 <View className="items-center gap-1 border-t border-[#eee8dc] py-4">
-                  <Text className="text-sm font-semibold text-[#5d706c]">Todavía no hay ventas hoy.</Text>
-                  <Text className="text-xs text-[#879792]">Tus ventas aparecerán aquí al registrarlas.</Text>
+                  <Text className="text-sm font-semibold text-[#6E625C]">Todavía no hay ventas hoy.</Text>
+                  <Text className="text-xs text-[#867A72]">Tus ventas aparecerán aquí al registrarlas.</Text>
                 </View>
               ) : (
                 ventas.slice(0, 4).map((venta) => (
@@ -496,17 +462,17 @@ export default function InicioScreen() {
                     className="flex-row items-center justify-between border-t border-[#eee8dc] py-2.5"
                   >
                     <View className="flex-1">
-                      <Text className="text-sm font-bold text-[#344b47]" numberOfLines={1}>
+                      <Text className="text-sm font-bold text-[#5A3D35]" numberOfLines={1}>
                         {venta.producto_nombre}
                       </Text>
-                      <Text className="text-[11px] text-[#879792]">
+                      <Text className="text-[11px] text-[#867A72]">
                         {venta.cantidad} un. · {new Date(venta.created_at).toLocaleTimeString([], {
                           hour: '2-digit',
                           minute: '2-digit',
                         })}
                       </Text>
                     </View>
-                    <Text className="text-sm font-extrabold text-[#246b61]">{money(venta.total)}</Text>
+                    <Text className="text-sm font-extrabold text-[#8B563D]">{money(venta.total)}</Text>
                   </View>
                 ))
               )}
@@ -519,13 +485,16 @@ export default function InicioScreen() {
         visible={mostrarBienvenida}
         nombre={nombre}
         recienRegistrado={flags.justRegistered}
-        onDone={() => setMostrarBienvenida(false)}
+        onDone={() => {
+          flags.welcomeShown = true;
+          setBienvenidaCerrada(true);
+        }}
       />
 
       <Modal visible={mostrarMeta} transparent animationType="fade" onRequestClose={() => setMostrarMeta(false)}>
-        <View className="flex-1 items-center justify-center bg-[#243b38]/60 px-6">
+        <View className="flex-1 items-center justify-center bg-[#493A36]/60 px-6">
           <View
-            className="w-full max-w-sm items-center gap-2 rounded-[28px] border border-white bg-[#fffefa] p-6"
+            className="w-full max-w-sm items-center gap-2 rounded-[28px] border border-white bg-[#FFFFFF] p-6"
             style={{
               shadowColor: '#aaa596',
               shadowOffset: { width: 0, height: 8 },
@@ -541,14 +510,14 @@ export default function InicioScreen() {
               style={{ width: 160, height: 140 }}
               webStyle={{ width: 160, height: 140 }}
             />
-            <Text className="text-center text-2xl font-black text-[#243b38]">¡Meta superada!</Text>
-            <Text className="text-center text-sm text-[#71817b]">
+            <Text className="text-center text-2xl font-black text-[#493A36]">¡Meta superada!</Text>
+            <Text className="text-center text-sm text-[#756B65]">
               Vendiste {money(ventasHoy)}. ¡Tu tienda va con todo!
             </Text>
             <Pressable
               accessibilityRole="button"
               onPress={() => setMostrarMeta(false)}
-              className="mt-2 w-full items-center rounded-2xl bg-[#246b61] py-3.5"
+              className="mt-2 w-full items-center rounded-2xl bg-[#8B563D] py-3.5"
             >
               <Text className="text-base font-extrabold text-white">¡Seguir vendiendo!</Text>
             </Pressable>

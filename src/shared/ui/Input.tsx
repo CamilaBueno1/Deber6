@@ -7,12 +7,14 @@ type Props = TextInputProps & {
   label?: string;
   icon?: keyof typeof Ionicons.glyphMap;
   containerClassName?: string;
+  error?: string;
 };
 
 export default function Input({
   label,
   icon,
   containerClassName = '',
+  error,
   onFocus,
   onBlur,
   style,
@@ -25,16 +27,16 @@ export default function Input({
   return (
     <View className={`${containerClassName || 'w-full'} gap-1.5`}>
       {label ? (
-        <Text className="text-xs font-bold uppercase tracking-wider text-[#5d706c]">{label}</Text>
+        <Text className="text-xs font-bold uppercase tracking-wider text-[#6E625C]">{label}</Text>
       ) : null}
       <View
         className="w-full flex-row items-center rounded-2xl"
         style={{
           minHeight: 52,
           borderWidth: 1,
-          borderColor: focused ? '#5d9c84' : '#e8e9e1',
-          backgroundColor: focused ? '#ffffff' : '#f8f8f3',
-          shadowColor: '#2c5647',
+          borderColor: error ? '#ef4444' : focused ? '#D97955' : '#E8DDD5',
+          backgroundColor: focused ? '#ffffff' : '#FFFAF6',
+          shadowColor: '#806D62',
           shadowOffset: { width: 0, height: 2 },
           shadowOpacity: focused ? 0.08 : 0,
           shadowRadius: 5,
@@ -68,7 +70,7 @@ export default function Input({
               paddingLeft: icon ? 8 : 16,
               paddingRight: esClave ? 6 : 16,
               fontSize: 16,
-              color: '#243b38',
+              color: '#493A36',
             },
             Platform.OS === 'web' ? ({ outlineStyle: 'none' } as any) : null,
             style,
@@ -91,6 +93,7 @@ export default function Input({
           </Pressable>
         ) : null}
       </View>
+      {error ? <Text className="text-xs font-medium text-[#ef4444]">{error}</Text> : null}
     </View>
   );
 }

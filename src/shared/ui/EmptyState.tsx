@@ -34,13 +34,13 @@ export default function EmptyState({
             style={{ width: size, height: size * 0.85 }}
             webStyle={{ width: size, height: size * 0.85 }}
           />
-          <View className="absolute -bottom-1 -right-1 h-9 w-9 items-center justify-center rounded-full border-2 border-[#fffcf6] bg-[#e6f0e9]">
-            <Ionicons name={icon} size={18} color="#246b61" />
+          <View className="absolute -bottom-1 -right-1 h-9 w-9 items-center justify-center rounded-full border-2 border-[#fffcf6] bg-[#F4E7DC]">
+            <Ionicons name={icon} size={18} color="#8B563D" />
           </View>
         </View>
       </View>
-      <Text className="mt-1 text-center text-lg font-extrabold text-[#193d35]">{title}</Text>
-      <Text className="mb-2 max-w-xs px-3 text-center text-sm leading-5 text-[#71817b]">{message}</Text>
+      <Text className="mt-1 text-center text-lg font-extrabold text-[#493A36]">{title}</Text>
+      <Text className="mb-2 max-w-xs px-3 text-center text-sm leading-5 text-[#756B65]">{message}</Text>
       {actionLabel && onAction ? (
         <Button title={actionLabel} icon="add-circle-outline" onPress={onAction} />
       ) : null}

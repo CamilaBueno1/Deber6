@@ -61,7 +61,7 @@ export default function VerificarCorreoScreen() {
   const errorDeEnlace = !tokenHash || tipo !== 'signup';
 
   return (
-    <View className="flex-1 items-center justify-center bg-[#f5f4ed] px-5 py-10">
+    <View className="flex-1 items-center justify-center bg-[#FFFAF5] px-5 py-10">
       <View
         pointerEvents="none"
         style={{
@@ -71,12 +71,12 @@ export default function VerificarCorreoScreen() {
           width: 180,
           height: 180,
           borderRadius: 90,
-          backgroundColor: 'rgba(52,138,118,0.08)',
+          backgroundColor: 'rgba(217,121,85,0.08)',
         }}
       />
       <Animated.View style={[{ width: '100%', maxWidth: 440 }, cardStyle]}>
         <View
-          className="items-center gap-4 rounded-[32px] border border-[#fffef8] bg-[#f3f0e7] px-6 py-8"
+          className="items-center gap-4 rounded-[32px] border border-[#fffef8] bg-[#FFF7ED] px-6 py-8"
           style={{
             shadowColor: '#aaa596',
             shadowOffset: { width: 0, height: 10 },
@@ -85,26 +85,26 @@ export default function VerificarCorreoScreen() {
             elevation: 6,
           }}
         >
-          <View className="h-16 w-16 items-center justify-center rounded-[22px] border border-[#fffef8] bg-[#e7e4da]">
+          <View className="h-16 w-16 items-center justify-center rounded-[22px] border border-[#fffef8] bg-[#F2E6D9]">
             <Ionicons
               name={estado === 'exito' ? 'checkmark-circle' : estado === 'error' ? 'mail-unread-outline' : 'mail-open-outline'}
               size={32}
-              color={estado === 'exito' ? '#348a76' : estado === 'error' ? '#d66a54' : '#246b61'}
+              color={estado === 'exito' ? '#D97955' : estado === 'error' ? '#d66a54' : '#8B563D'}
             />
           </View>
 
           <View className="items-center gap-1">
-            <Text className="text-xs font-extrabold uppercase tracking-[2px] text-[#348a76]">
+            <Text className="text-xs font-extrabold uppercase tracking-[2px] text-[#D97955]">
               StockYa
             </Text>
-            <Text className="text-center text-2xl font-black text-[#243b38]">
+            <Text className="text-center text-2xl font-black text-[#493A36]">
               {estado === 'exito'
                 ? '¡Correo confirmado!'
                 : estado === 'error'
                   ? 'No pudimos confirmar'
                   : 'Confirma tu correo'}
             </Text>
-            <Text className="mt-1 text-center text-sm leading-5 text-[#71817b]">
+            <Text className="mt-1 text-center text-sm leading-5 text-[#756B65]">
               {estado === 'exito'
                 ? 'Tu cuenta ya está lista. Vuelve a tu tienda y comienza a vender.'
                 : estado === 'error'
@@ -114,13 +114,13 @@ export default function VerificarCorreoScreen() {
           </View>
 
           {estado === 'verificando' ? (
-            <View className="flex-row items-center gap-2 rounded-2xl bg-[#e7e4da] px-4 py-3">
-              <ActivityIndicator size="small" color="#246b61" />
-              <Text className="text-sm font-bold text-[#246b61]">Verificando enlace...</Text>
+            <View className="flex-row items-center gap-2 rounded-2xl bg-[#F2E6D9] px-4 py-3">
+              <ActivityIndicator size="small" color="#8B563D" />
+              <Text className="text-sm font-bold text-[#8B563D]">Verificando enlace...</Text>
             </View>
           ) : estado === 'exito' ? (
             <>
-              <View className="h-28 w-28 items-center justify-center rounded-full bg-[#e7e4da]">
+              <View className="h-28 w-28 items-center justify-center rounded-full bg-[#F2E6D9]">
                 <LottieView
                   source={require('../../../../assets/lottie/success.json')}
                   autoPlay
@@ -147,7 +147,7 @@ export default function VerificarCorreoScreen() {
                 onPress={() => router.replace('/register')}
                 className="py-2"
               >
-                <Text className="text-sm font-bold text-[#246b61]">Crear una cuenta nueva</Text>
+                <Text className="text-sm font-bold text-[#8B563D]">Crear una cuenta nueva</Text>
               </Pressable>
             </>
           ) : (
@@ -158,7 +158,7 @@ export default function VerificarCorreoScreen() {
             />
           )}
 
-          <Text className="text-center text-xs text-[#879792]">
+          <Text className="text-center text-xs text-[#867A72]">
             Si confirmas desde el teléfono, vuelve a la app StockYa para iniciar sesión.
           </Text>
         </View>

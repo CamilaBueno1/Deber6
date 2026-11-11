@@ -116,22 +116,22 @@ export default function LogoutButton({ showLabel = false }: { showLabel?: boolea
         }
         }}
       >
-        <View className="flex-1 items-center justify-center bg-[#16302c]/60 px-6">
+        <View className="flex-1 items-center justify-center bg-[#493A36]/60 px-6">
         <Animated.View style={[{ width: '100%', maxWidth: 380 }, modalStyle]}>
-          <View className="w-full items-center gap-3 rounded-[28px] border border-white bg-[#fffefa] p-6">
+          <View className="w-full items-center gap-3 rounded-[28px] border border-white bg-[#FFFFFF] p-6">
             <Animated.View style={iconStyle}>
-              <View className={`h-16 w-16 items-center justify-center rounded-3xl ${despedida ? 'bg-[#e4f1e9]' : 'bg-[#fff1ec]'}`}>
+              <View className={`h-16 w-16 items-center justify-center rounded-3xl ${despedida ? 'bg-[#F4E7DC]' : 'bg-[#fff1ec]'}`}>
                 <Ionicons
                   name={despedida ? 'storefront' : 'log-out'}
                   size={30}
-                  color={despedida ? '#2f806b' : '#c96850'}
+                  color={despedida ? '#D97955' : '#c96850'}
                 />
               </View>
             </Animated.View>
-            <Text className="text-center text-xl font-extrabold text-[#193d35]">
+            <Text className="text-center text-xl font-extrabold text-[#493A36]">
               {despedida ? '¡Hasta pronto!' : '¿Cerrar sesión ahora?'}
             </Text>
-            <Text className="text-center text-sm leading-5 text-[#71817b]">
+            <Text className="text-center text-sm leading-5 text-[#756B65]">
               {despedida
                 ? 'Tu tienda queda guardada y lista para cuando vuelvas.'
                 : 'Tus negocios y movimientos quedan guardados en la nube. Podrás volver a entrar cuando quieras.'}

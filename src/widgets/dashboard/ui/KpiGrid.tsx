@@ -51,7 +51,7 @@ function KpiCardItem({ item, index }: { item: KpiItem; index: number }) {
       style={[
         {
           width: '48.2%',
-          shadowColor: '#243b38',
+          shadowColor: '#493A36',
           shadowOffset: { width: 0, height: 3 },
           shadowOpacity: 0.06,
           shadowRadius: 8,
@@ -67,7 +67,7 @@ function KpiCardItem({ item, index }: { item: KpiItem; index: number }) {
         onPressOut={() => {
           scale.set(withSpring(1, { damping: 14, stiffness: 260 }));
         }}
-        className="rounded-[26px] border border-white bg-[#fffefa] p-4"
+        className="rounded-[26px] border border-white bg-[#FFFFFF] p-4"
       >
         <View className="flex-row items-center justify-between">
           <View
@@ -76,13 +76,13 @@ function KpiCardItem({ item, index }: { item: KpiItem; index: number }) {
           >
             <Ionicons name={item.icono} size={20} color={item.color} />
           </View>
-          <View className="rounded-full bg-[#f4efe4] px-2 py-0.5">
-            <Text className="text-[10px] font-bold text-[#71817b]">{item.subtitulo}</Text>
+          <View className="rounded-full bg-[#F8EDE0] px-2 py-0.5">
+            <Text className="text-[10px] font-bold text-[#756B65]">{item.subtitulo}</Text>
           </View>
         </View>
-        <Text className="mt-3 text-xs font-semibold text-[#71817b]">{item.titulo}</Text>
+        <Text className="mt-3 text-xs font-semibold text-[#756B65]">{item.titulo}</Text>
         <Text
-          className="mt-0.5 text-xl font-extrabold text-[#243b38]"
+          className="mt-0.5 text-xl font-extrabold text-[#493A36]"
           numberOfLines={1}
           adjustsFontSizeToFit
           minimumFontScale={0.75}

@@ -1,13 +1,17 @@
 import AuthShell from '@/shared/ui/AuthShell';
 import Button from '@/shared/ui/Button';
+import GoogleButton from '@/features/auth/ui/GoogleButton';
 import Input from '@/shared/ui/Input';
+import PasswordStrengthBar from '@/shared/ui/PasswordStrengthBar';
 import TextLink from '@/shared/ui/TextLink';
-import { emailConfirmationRedirectTo } from '@/features/auth/api/auth';
+import { emailConfirmationRedirectTo, signInWithGoogle } from '@/features/auth/api/auth';
 import { flags } from '@/features/auth/model/flags';
 import { aviso, showError } from '@/shared/lib/notify';
+import { evaluarPassword } from '@/shared/lib/password';
 import { supabase } from '@/shared/lib/supabase';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
+import { Text, View } from 'react-native';
 
 export default function Register() {
   const router = useRouter();
@@ -16,11 +20,12 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [loading, setLoading] = useState(false);
+  const passwordEvaluation = evaluarPassword(password);
 
   const registrar = async () => {
     if (!nombre.trim()) return aviso('Escribe tu nombre.');
     if (!email.trim()) return aviso('Escribe tu correo electrónico.');
-    if (password.length < 6) return aviso('La contraseña debe tener al menos 6 caracteres.');
+    if (!passwordEvaluation.valid) return aviso('La contraseña debe tener 8 caracteres, mayúscula, minúscula y número.');
     if (password !== confirm) return aviso('Las dos contraseñas deben ser iguales.');
 
     setLoading(true);
@@ -56,52 +61,81 @@ export default function Register() {
     }
   };
 
+  const conGoogle = async () => {
+    setLoading(true);
+    flags.welcomeShown = false;
+    try {
+      const signedIn = await signInWithGoogle();
+      if (!signedIn) flags.welcomeShown = true;
+    } catch (error) {
+      flags.welcomeShown = true;
+      showError(error, 'No pudimos entrar con Google');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <AuthShell
       title="Crea tu cuenta"
       subtitle="Empieza a llevar las cuentas de tu negocio."
       showWelcomeAnimation
     >
-      <Input
-        label="Tu nombre"
-        icon="person-outline"
-        placeholder="Ej. María Pérez"
-        autoCapitalize="words"
-        value={nombre}
-        onChangeText={setNombre}
-      />
-      <Input
-        label="Correo electrónico"
-        icon="mail-outline"
-        placeholder="tucorreo@ejemplo.com"
-        keyboardType="email-address"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <Input
-        label="Contraseña"
-        icon="lock-closed-outline"
-        placeholder="Mínimo 6 caracteres"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
-      <Input
-        label="Repite la contraseña"
-        icon="shield-checkmark-outline"
-        placeholder="Escríbela otra vez"
-        secureTextEntry
-        value={confirm}
-        onChangeText={setConfirm}
-      />
-      <Button
-        title="Crear mi cuenta"
-        variant="dark"
-        icon="sparkles-outline"
-        onPress={registrar}
-        loading={loading}
-      />
-      <TextLink prefix="¿Ya tienes cuenta?" label="Inicia sesión" onPress={() => router.replace('/login')} />
+      <View className="w-full gap-4">
+        <Input
+          label="Tu nombre"
+          icon="person-outline"
+          placeholder="Ej. María Pérez"
+          autoCapitalize="words"
+          value={nombre}
+          onChangeText={setNombre}
+        />
+        <Input
+          label="Correo electrónico"
+          icon="mail-outline"
+          placeholder="tucorreo@ejemplo.com"
+          keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
+        />
+        <View className="gap-2">
+          <Input
+            label="Contraseña"
+            icon="lock-closed-outline"
+            placeholder="Mínimo 8 caracteres"
+            secureTextEntry
+            value={password}
+            onChangeText={setPassword}
+          />
+          <PasswordStrengthBar password={password} />
+        </View>
+        <Input
+          label="Repite la contraseña"
+          icon="shield-checkmark-outline"
+          placeholder="Escríbela otra vez"
+          secureTextEntry
+          value={confirm}
+          onChangeText={setConfirm}
+        />
+        <Button
+          title="Crear mi cuenta"
+          variant="dark"
+          icon="sparkles-outline"
+          onPress={registrar}
+          loading={loading}
+        />
+        <View className="gap-3 rounded-[22px] border border-[#ecebe3] bg-[#f8f8f3] p-3.5">
+          <View className="flex-row items-center gap-3">
+            <View className="h-px flex-1 bg-[#e2ded4]" />
+            <Text className="text-[10px] font-bold uppercase tracking-[1.4px] text-[#867A72]">
+              O continúa con
+            </Text>
+            <View className="h-px flex-1 bg-[#e2ded4]" />
+          </View>
+          <GoogleButton loading={loading} onPress={conGoogle} />
+        </View>
+        <TextLink prefix="¿Ya tienes cuenta?" label="Inicia sesión" onPress={() => router.replace('/login')} />
+      </View>
     </AuthShell>
   );
 }

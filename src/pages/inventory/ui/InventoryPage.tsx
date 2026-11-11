@@ -133,7 +133,7 @@ export default function InventarioScreen() {
 
   if (!selected) {
     return (
-      <View className="flex-1 bg-[#f3f8f2]">
+      <View className="flex-1 bg-[#FFFAF5]">
         <Header eyebrow="StockYa" title="Inventario" />
         <View className="p-4">
           <Card>
@@ -151,7 +151,7 @@ export default function InventarioScreen() {
   }
 
   return (
-    <View className="flex-1 bg-[#f3f8f2]">
+    <View className="flex-1 bg-[#FFFAF5]">
       <Header
         eyebrow={selected.nombre}
         title="Inventario"
@@ -174,14 +174,14 @@ export default function InventarioScreen() {
 
         <Card delay={40} className="gap-3">
           <View className="flex-row items-center gap-3">
-            <View className="h-11 w-11 items-center justify-center rounded-2xl bg-[#ddf4e6]">
-              <Ionicons name="cube" size={21} color="#16896a" />
+            <View className="h-11 w-11 items-center justify-center rounded-2xl bg-[#FCE5D8]">
+              <Ionicons name="cube" size={21} color="#D97955" />
             </View>
             <View className="flex-1">
-              <Text className="text-sm font-extrabold text-[#243b38]">
+              <Text className="text-sm font-extrabold text-[#493A36]">
                 {productos.length} {productos.length === 1 ? 'producto' : 'productos'}
               </Text>
-              <Text className="text-xs text-[#71817b]">en el inventario de {selected.nombre}</Text>
+              <Text className="text-xs text-[#756B65]">en el inventario de {selected.nombre}</Text>
             </View>
             <View className="items-end">
               <Text className="text-lg font-black text-[#b84c37]">{productosBajos.length}</Text>
@@ -190,15 +190,15 @@ export default function InventarioScreen() {
           </View>
           {productosBajos.length > 0 ? (
             <Button
-              title="Compartir lista de reposición"
-              icon="logo-whatsapp"
+              title="Compartir"
+              icon="share-social-outline"
               variant="outline"
               onPress={compartirReposicion}
             />
           ) : (
-            <View className="flex-row items-center gap-2 rounded-xl bg-[#e2f5e9] px-3 py-2.5">
-              <Ionicons name="checkmark-circle" size={17} color="#1a9c70" />
-              <Text className="flex-1 text-xs font-semibold text-[#137656]">
+            <View className="flex-row items-center gap-2 rounded-xl bg-[#FCE5D8] px-3 py-2.5">
+              <Ionicons name="checkmark-circle" size={17} color="#D97955" />
+              <Text className="flex-1 text-xs font-semibold text-[#A95743]">
                 Todo en orden: no hay productos bajo el mínimo.
               </Text>
             </View>
@@ -207,7 +207,7 @@ export default function InventarioScreen() {
 
         {loading && productos.length === 0 ? (
           <Card delay={100} className="items-center gap-2 py-8">
-            <Text className="text-sm font-semibold text-[#71817b]">Cargando inventario...</Text>
+            <Text className="text-sm font-semibold text-[#756B65]">Cargando inventario...</Text>
           </Card>
         ) : productos.length === 0 ? (
           <Card>
@@ -232,13 +232,13 @@ export default function InventarioScreen() {
                 onPress={() => setCategoriaActiva(null)}
                 className={`rounded-full border px-3.5 py-2 ${
                   categoriaActiva === null
-                    ? 'border-[#16896a] bg-[#16896a]'
-                    : 'border-[#e5e8df] bg-[#fffefa]'
+                    ? 'border-[#D97955] bg-[#D97955]'
+                    : 'border-[#EFE3DA] bg-[#FFFFFF]'
                 }`}
               >
                 <Text
                   className={`text-xs font-bold ${
-                    categoriaActiva === null ? 'text-white' : 'text-[#5d706c]'
+                    categoriaActiva === null ? 'text-white' : 'text-[#6E625C]'
                   }`}
                 >
                   Todas · {productos.length}
@@ -257,10 +257,10 @@ export default function InventarioScreen() {
                     accessibilityState={{ selected: activa }}
                     onPress={() => setCategoriaActiva(clave)}
                     className={`rounded-full border px-3.5 py-2 ${
-                      activa ? 'border-[#16896a] bg-[#16896a]' : 'border-[#e5e8df] bg-[#fffefa]'
+                      activa ? 'border-[#D97955] bg-[#D97955]' : 'border-[#EFE3DA] bg-[#FFFFFF]'
                     }`}
                   >
-                    <Text className={`text-xs font-bold ${activa ? 'text-white' : 'text-[#5d706c]'}`}>
+                    <Text className={`text-xs font-bold ${activa ? 'text-white' : 'text-[#6E625C]'}`}>
                       {categoria} · {cantidad}
                     </Text>
                   </Pressable>
@@ -270,12 +270,12 @@ export default function InventarioScreen() {
 
             <View className="flex-row items-end justify-between px-1">
               <View>
-                <Text className="text-lg font-extrabold text-[#243b38]">Tus productos</Text>
-                <Text className="text-xs text-[#71817b]">
+                <Text className="text-lg font-extrabold text-[#493A36]">Tus productos</Text>
+                <Text className="text-xs text-[#756B65]">
                   {productosFiltrados.length} {productosFiltrados.length === 1 ? 'producto' : 'productos'} · toca para editar
                 </Text>
               </View>
-              <Text className="text-xs font-bold text-[#5d706c]">{money(
+              <Text className="text-xs font-bold text-[#6E625C]">{money(
                 productos.reduce((total, producto) => total + producto.stock * producto.costo, 0)
               )}</Text>
             </View>

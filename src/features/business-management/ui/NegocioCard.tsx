@@ -34,32 +34,32 @@ export default function NegocioCard({ negocio, activo, onSelect, onEdit, onDelet
       >
         <Card
           className={`flex-row items-center gap-3.5 ${
-            activo ? 'border-2 border-[#348a76] bg-[#fafdf9]' : ''
+            activo ? 'border-2 border-[#D97955] bg-[#fafdf9]' : ''
           }`}
         >
           <View
             className={`h-12 w-12 items-center justify-center rounded-2xl ${
-              activo ? 'bg-[#246b61]' : 'bg-[#e6f0e9]'
+              activo ? 'bg-[#8B563D]' : 'bg-[#F4E7DC]'
             }`}
           >
             <Ionicons
               name={iconoNegocio(negocio.emoji)}
               size={23}
-              color={activo ? '#ffffff' : '#246b61'}
+              color={activo ? '#ffffff' : '#8B563D'}
             />
           </View>
           <View className="flex-1 gap-0.5">
             <View className="flex-row items-center gap-2">
-              <Text className="text-base font-bold text-[#243b38]" numberOfLines={1}>
+              <Text className="text-base font-bold text-[#493A36]" numberOfLines={1}>
                 {negocio.nombre}
               </Text>
               {activo ? (
-                <View className="rounded-full bg-[#e6f0e9] px-2 py-0.5">
-                  <Text className="text-[10px] font-extrabold uppercase text-[#246b61]">Activo</Text>
+                <View className="rounded-full bg-[#F4E7DC] px-2 py-0.5">
+                  <Text className="text-[10px] font-extrabold uppercase text-[#8B563D]">Activo</Text>
                 </View>
               ) : null}
             </View>
-            <Text className="text-xs text-[#71817b]">
+            <Text className="text-xs text-[#756B65]">
               {negocio.rubro || 'Emprendimiento'} · Capital {money(negocio.capital_inicial)}
             </Text>
           </View>
@@ -69,9 +69,9 @@ export default function NegocioCard({ negocio, activo, onSelect, onEdit, onDelet
               accessibilityLabel={`Editar ${negocio.nombre}`}
               onPress={onEdit}
               hitSlop={8}
-              className="h-9 w-9 items-center justify-center rounded-full bg-[#f4efe4] active:opacity-70"
+              className="h-9 w-9 items-center justify-center rounded-full bg-[#F8EDE0] active:opacity-70"
             >
-              <Ionicons name="create-outline" size={18} color="#5d706c" />
+              <Ionicons name="create-outline" size={18} color="#6E625C" />
             </Pressable>
             <Pressable
               accessibilityRole="button"

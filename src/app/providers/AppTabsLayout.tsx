@@ -30,7 +30,7 @@ function AnimatedTabIcon({
     <Animated.View style={animatedStyle}>
       <View
         className={`h-8 w-12 items-center justify-center rounded-full ${
-          focused ? 'bg-[#ddf4e6]' : ''
+          focused ? 'bg-[#FCE5D8]' : ''
         }`}
       >
         <Ionicons
@@ -66,11 +66,11 @@ export default function AppLayout() {
           tabBarItemStyle: { paddingTop: 6, paddingBottom: Platform.OS === 'ios' ? 2 : 6 },
           tabBarStyle: {
             backgroundColor: '#ffffff',
-            borderTopColor: '#dce9dd',
+            borderTopColor: '#F0DDD2',
             borderTopWidth: 1,
             height: Platform.OS === 'ios' ? 82 : 68,
             elevation: 8,
-            shadowColor: '#314b3f',
+            shadowColor: '#806D62',
             shadowOffset: { width: 0, height: -3 },
             shadowOpacity: 0.08,
             shadowRadius: 10,
@@ -96,6 +96,7 @@ export default function AppLayout() {
           options={{ title: 'Inventario', tabBarIcon: icono('cube-outline', 'cube') }}
         />
         <Tabs.Screen name="negocios" options={{ href: null }} />
+        <Tabs.Screen name="cambiar-password" options={{ href: null }} />
         <Tabs.Screen
           name="settings"
           options={{ title: 'Perfil', tabBarIcon: icono('person-outline', 'person') }}

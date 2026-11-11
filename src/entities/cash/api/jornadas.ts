@@ -44,7 +44,13 @@ export async function abrirJornada(negocioId: string, fecha: string, capitalInic
   const { error } = await supabase
     .from('jornadas')
     .insert({ negocio_id: negocioId, fecha, capital_inicio: capitalInicio });
-  if (error) throw error;
+  if (error) {
+    if (error.code === '23505') {
+      const jornadaExistente = await obtenerJornada(negocioId, fecha);
+      if (jornadaExistente) return;
+    }
+    throw error;
+  }
 }
 
 export async function cerrarJornada(id: string) {

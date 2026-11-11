@@ -16,7 +16,7 @@ export function colorStock(producto: Producto) {
       ? { dot: '#e26756', bg: '#fff0ec', text: '#b9463d', label: 'Agotado' }
       : { dot: '#e39a26', bg: '#fff5dd', text: '#9d6811', label: 'Stock bajo' };
   }
-  return { dot: '#1a9c70', bg: '#e2f5e9', text: '#137656', label: 'Disponible' };
+  return { dot: '#D97955', bg: '#FCE5D8', text: '#A95743', label: 'Disponible' };
 }
 
 export default function ProductoCard({ producto, onEdit, onDelete }: Props) {
@@ -24,9 +24,9 @@ export default function ProductoCard({ producto, onEdit, onDelete }: Props) {
 
   return (
     <View
-      className="flex-row items-center gap-3 rounded-[22px] border border-white bg-[#fffefa] p-3"
+      className="flex-row items-center gap-3 rounded-[22px] border border-white bg-[#FFFFFF] p-3"
       style={{
-        shadowColor: '#314b3f',
+        shadowColor: '#806D62',
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.07,
         shadowRadius: 10,
@@ -40,16 +40,16 @@ export default function ProductoCard({ producto, onEdit, onDelete }: Props) {
           style={{ width: 58, height: 58, borderRadius: 16 }}
         />
       ) : (
-        <View className="h-[58px] w-[58px] items-center justify-center rounded-2xl bg-[#e6f0e9]">
-          <Ionicons name="cube-outline" size={24} color="#348a76" />
+        <View className="h-[58px] w-[58px] items-center justify-center rounded-2xl bg-[#F4E7DC]">
+          <Ionicons name="cube-outline" size={24} color="#D97955" />
         </View>
       )}
 
       <View className="min-w-0 flex-1 gap-1">
-        <Text className="text-sm font-extrabold text-[#243b38]" numberOfLines={1}>
+        <Text className="text-sm font-extrabold text-[#493A36]" numberOfLines={1}>
           {producto.nombre}
         </Text>
-        <Text className="text-xs text-[#71817b]" numberOfLines={1}>
+        <Text className="text-xs text-[#756B65]" numberOfLines={1}>
           {producto.categoria || 'Sin categoría'} · {money(producto.precio_venta)}
         </Text>
         <View className="flex-row items-center gap-1.5">
@@ -65,9 +65,9 @@ export default function ProductoCard({ producto, onEdit, onDelete }: Props) {
           accessibilityRole="button"
           accessibilityLabel={`Editar ${producto.nombre}`}
           onPress={onEdit}
-          className="h-9 w-9 items-center justify-center rounded-xl bg-[#eef5f0]"
+          className="h-9 w-9 items-center justify-center rounded-xl bg-[#FFF1E8]"
         >
-          <Ionicons name="create-outline" size={17} color="#246b61" />
+          <Ionicons name="create-outline" size={17} color="#8B563D" />
         </Pressable>
         <Pressable
           accessibilityRole="button"

@@ -2,6 +2,9 @@ import { AuthError } from '@supabase/supabase-js';
 import { useState, type FormEvent } from 'react';
 import { supabase, supabaseConfigError } from '../../../shared/api/supabase';
 
+const hasValidPassword = (value: string) =>
+  value.length >= 8 && /[A-Z]/.test(value) && /[a-z]/.test(value) && /\d/.test(value);
+
 type ConfirmationState = 'ready' | 'loading' | 'verified' | 'success' | 'error';
 
 function getErrorMessage(error: unknown, isRecovery: boolean) {
@@ -25,11 +28,20 @@ function getErrorMessage(error: unknown, isRecovery: boolean) {
 
 export function useConfirmEmail() {
   const searchParams = new URLSearchParams(window.location.search);
-  const tokenHash = searchParams.get('token_hash');
-  const linkType = searchParams.get('type');
+  const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+  const getParam = (key: string) => searchParams.get(key) ?? hashParams.get(key);
+  const tokenHash = getParam('token_hash') ?? getParam('token');
+  const authorizationCode = getParam('code');
+  const accessToken = getParam('access_token');
+  const refreshToken = getParam('refresh_token');
+  const linkType = getParam('type');
   const isRecovery = linkType === 'recovery';
-  const isSignupLink = linkType === 'signup';
-  const isBlocked = Boolean(supabaseConfigError || !tokenHash || (!isSignupLink && !isRecovery) || !supabase);
+  const isSignupLink = linkType === 'signup' || Boolean(authorizationCode && !isRecovery);
+  const hasSessionTokens = Boolean(accessToken && refreshToken);
+  const missingCredentials = !tokenHash && !authorizationCode && !hasSessionTokens;
+  const isBlocked = Boolean(
+    supabaseConfigError || missingCredentials || (!isSignupLink && !isRecovery) || !supabase
+  );
   const [recoveryVerified, setRecoveryVerified] = useState(false);
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
@@ -38,24 +50,35 @@ export function useConfirmEmail() {
   );
   const [error, setError] = useState(
     supabaseConfigError ||
-      (!tokenHash || (!isSignupLink && !isRecovery)
-        ? 'El enlace está incompleto o no es válido. Vuelve a StockYa y solicita uno nuevo.'
+      (missingCredentials || (!isSignupLink && !isRecovery)
+        ? 'El enlace llegó sin su código de verificación. Vuelve a StockYa y solicita que reenvíen el correo.'
         : '')
   );
 
   const verifyRecoveryLink = async () => {
-    if (!tokenHash || !isRecovery || !supabase || status === 'loading' || recoveryVerified) return;
+    if ((!tokenHash && !authorizationCode && !hasSessionTokens) || !isRecovery || !supabase || status === 'loading' || recoveryVerified) return;
 
     setStatus('loading');
     setError('');
 
     try {
-      const { error: verificationError } = await supabase.auth.verifyOtp({
-        token_hash: tokenHash,
-        type: 'recovery',
-      });
-
-      if (verificationError) throw verificationError;
+      if (tokenHash) {
+        const { error: verificationError } = await supabase.auth.verifyOtp({
+          token_hash: tokenHash,
+          type: 'recovery',
+        });
+        if (verificationError) throw verificationError;
+      } else if (authorizationCode) {
+        const { error: exchangeError } =
+          await supabase.auth.exchangeCodeForSession(authorizationCode);
+        if (exchangeError) throw exchangeError;
+      } else if (accessToken && refreshToken) {
+        const { error: sessionError } = await supabase.auth.setSession({
+          access_token: accessToken,
+          refresh_token: refreshToken,
+        });
+        if (sessionError) throw sessionError;
+      }
       setRecoveryVerified(true);
       setStatus('verified');
     } catch (verificationError) {
@@ -67,8 +90,8 @@ export function useConfirmEmail() {
   const updatePassword = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!supabase || !recoveryVerified || status === 'loading' || status === 'success') return;
-    if (password.length < 6) {
-      setError('La contraseña debe tener al menos 6 caracteres.');
+    if (!hasValidPassword(password)) {
+      setError('La contraseña debe tener 8 caracteres, mayúscula, minúscula y número.');
       setStatus('error');
       return;
     }
@@ -94,18 +117,29 @@ export function useConfirmEmail() {
   };
 
   const confirmEmail = async () => {
-    if (!tokenHash || !isSignupLink || !supabase || status === 'loading' || status === 'success') return;
+    if ((!tokenHash && !authorizationCode && !hasSessionTokens) || !isSignupLink || !supabase || status === 'loading' || status === 'success') return;
 
     setStatus('loading');
     setError('');
 
     try {
-      const { error: verificationError } = await supabase.auth.verifyOtp({
-        token_hash: tokenHash,
-        type: 'signup',
-      });
-
-      if (verificationError) throw verificationError;
+      if (tokenHash) {
+        const { error: verificationError } = await supabase.auth.verifyOtp({
+          token_hash: tokenHash,
+          type: 'signup',
+        });
+        if (verificationError) throw verificationError;
+      } else if (authorizationCode) {
+        const { error: exchangeError } =
+          await supabase.auth.exchangeCodeForSession(authorizationCode);
+        if (exchangeError) throw exchangeError;
+      } else if (accessToken && refreshToken) {
+        const { error: sessionError } = await supabase.auth.setSession({
+          access_token: accessToken,
+          refresh_token: refreshToken,
+        });
+        if (sessionError) throw sessionError;
+      }
       setStatus('success');
       window.history.replaceState({}, document.title, window.location.pathname);
     } catch (verificationError) {

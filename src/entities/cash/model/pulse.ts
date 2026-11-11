@@ -3,12 +3,37 @@ import type { Estado, Jornada, Movimiento, Pulso, Tipo } from '@/shared/types';
 export const sumar = (movs: Movimiento[], ...tipos: Tipo[]) =>
   movs.filter((m) => tipos.includes(m.tipo)).reduce((total, m) => total + m.monto, 0);
 
+export const sumarVentasEnEfectivo = (movs: Movimiento[]) =>
+  movs
+    .filter((movimiento) => movimiento.tipo === 'venta' && (movimiento.metodo_pago ?? 'efectivo') === 'efectivo')
+    .reduce((total, movimiento) => total + movimiento.monto, 0);
+
+export const sumarVentasPorTransferencia = (movs: Movimiento[]) =>
+  movs
+    .filter((movimiento) => movimiento.tipo === 'venta' && movimiento.metodo_pago === 'transferencia')
+    .reduce((total, movimiento) => total + movimiento.monto, 0);
+
+export const sumarAbonosEnEfectivo = (movs: Movimiento[]) =>
+  movs
+    .filter((movimiento) => movimiento.tipo === 'abono' && movimiento.metodo_pago === 'efectivo')
+    .reduce((total, movimiento) => total + movimiento.monto, 0);
+
+export const sumarAbonosPorTransferencia = (movs: Movimiento[]) =>
+  movs
+    .filter((movimiento) => movimiento.tipo === 'abono' && movimiento.metodo_pago === 'transferencia')
+    .reduce((total, movimiento) => total + movimiento.monto, 0);
+
 const redondearMoneda = (monto: number) => Math.round((monto + Number.EPSILON) * 100) / 100;
 
 export const cajaDelDia = (fecha: string, jornadas: Jornada[], movs: Movimiento[]) => {
   const jornada = jornadas.find((j) => j.fecha === fecha);
   const delDia = movs.filter((m) => m.fecha === fecha);
-  return (jornada?.capital_inicio ?? 0) + sumar(delDia, 'venta') - sumar(delDia, 'gasto', 'compra');
+  return (
+    (jornada?.capital_inicio ?? 0) +
+    sumarVentasEnEfectivo(delDia) +
+    sumarAbonosEnEfectivo(delDia) -
+    sumar(delDia, 'gasto', 'compra')
+  );
 };
 
 const sumarCostoVentas = (movs: Movimiento[]) =>

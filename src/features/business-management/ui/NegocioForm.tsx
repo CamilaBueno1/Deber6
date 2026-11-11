@@ -58,7 +58,7 @@ export default function NegocioForm({ visible, inicial, saving, onSubmit, onClos
       >
         <View className="flex-1 justify-end bg-black/50">
           <ScrollView
-            className="w-full rounded-t-[30px] border border-white bg-[#fffefa] px-5 pt-3"
+            className="w-full rounded-t-[30px] border border-white bg-[#FFFFFF] px-5 pt-3"
             contentContainerClassName="gap-3.5 pb-8"
             style={{ maxHeight: '90%' }}
             keyboardShouldPersistTaps="always"
@@ -66,27 +66,27 @@ export default function NegocioForm({ visible, inicial, saving, onSubmit, onClos
             <View className="mb-1 h-1.5 w-12 self-center rounded-full bg-[#ddd5c7]" />
             <View className="flex-row items-center justify-between">
               <View className="flex-row items-center gap-2.5">
-                <View className="h-10 w-10 items-center justify-center rounded-2xl bg-[#e6f0e9]">
-                  <Ionicons name={icono} size={21} color="#246b61" />
+                <View className="h-10 w-10 items-center justify-center rounded-2xl bg-[#F4E7DC]">
+                  <Ionicons name={icono} size={21} color="#8B563D" />
                 </View>
                 <View>
-                  <Text className="text-xl font-bold text-[#243b38]">
+                  <Text className="text-xl font-bold text-[#493A36]">
                     {inicial ? 'Editar negocio' : 'Nuevo negocio'}
                   </Text>
-                  <Text className="text-xs text-[#71817b]">Personaliza tu emprendimiento</Text>
+                  <Text className="text-xs text-[#756B65]">Personaliza tu emprendimiento</Text>
                 </View>
               </View>
               <Pressable
                 onPress={onClose}
                 hitSlop={8}
-                className="h-8 w-8 items-center justify-center rounded-full bg-[#f4efe4]"
+                className="h-8 w-8 items-center justify-center rounded-full bg-[#F8EDE0]"
               >
-                <Ionicons name="close" size={18} color="#5d706c" />
+                <Ionicons name="close" size={18} color="#6E625C" />
               </Pressable>
             </View>
 
             <View className="gap-1.5">
-              <Text className="text-xs font-bold uppercase tracking-wider text-[#5d706c]">
+              <Text className="text-xs font-bold uppercase tracking-wider text-[#6E625C]">
                 Elige un ícono
               </Text>
               <ScrollView
@@ -105,10 +105,10 @@ export default function NegocioForm({ visible, inicial, saving, onSubmit, onClos
                       accessibilityState={{ selected }}
                       onPress={() => setIcono(e)}
                       className={`h-12 w-12 items-center justify-center rounded-2xl border ${
-                        selected ? 'border-[#246b61] bg-[#246b61]' : 'border-[#fffef8] bg-[#e7e4da]'
+                        selected ? 'border-[#8B563D] bg-[#8B563D]' : 'border-[#fffef8] bg-[#F2E6D9]'
                       }`}
                     >
-                      <Ionicons name={e} size={22} color={selected ? '#ffffff' : '#71817b'} />
+                      <Ionicons name={e} size={22} color={selected ? '#ffffff' : '#756B65'} />
                     </Pressable>
                   );
                 })}

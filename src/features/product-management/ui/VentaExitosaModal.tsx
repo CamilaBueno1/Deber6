@@ -7,7 +7,7 @@ import LottieView from 'lottie-react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 
 type Props = {
-  venta: Venta | null;
+  venta: Venta[] | null;
   onClose: () => void;
 };
 
@@ -25,10 +25,10 @@ export default function VentaExitosaModal({ venta, onClose }: Props) {
 
   return (
     <Modal visible={venta !== null} transparent animationType="fade" onRequestClose={onClose}>
-      <View className="flex-1 items-center justify-center bg-[#243b38]/55 px-6">
+      <View className="flex-1 items-center justify-center bg-[#493A36]/55 px-6">
         <Animated.View style={[{ width: '100%', maxWidth: 380 }, animatedStyle]}>
-          <View className="w-full items-center gap-2 rounded-[28px] border border-white bg-[#fffefa] p-6">
-            <View className="h-32 w-32 items-center justify-center rounded-full bg-[#e6f0e9]/60">
+          <View className="w-full items-center gap-2 rounded-[28px] border border-white bg-[#FFFFFF] p-6">
+            <View className="h-32 w-32 items-center justify-center rounded-full bg-[#F4E7DC]/60">
               <LottieView
                 source={require('../../../../assets/lottie/success.json')}
                 autoPlay
@@ -37,14 +37,28 @@ export default function VentaExitosaModal({ venta, onClose }: Props) {
                 webStyle={{ width: 128, height: 128 }}
               />
             </View>
-            <Text className="text-2xl font-extrabold text-[#243b38]">¡Venta registrada!</Text>
-            <Text className="text-center text-sm text-[#71817b]">
-              {venta?.cantidad} × {venta?.producto_nombre}
+            <Text className="text-2xl font-extrabold text-[#493A36]">¡Venta registrada!</Text>
+            <View className="max-h-28 w-full gap-1">
+              {venta?.[0]?.metodo_pago ? (
+                <Text className="text-center text-xs text-[#756B65]">
+                  Pago por {venta[0].metodo_pago === 'efectivo' ? 'efectivo' : 'transferencia'}
+                </Text>
+              ) : null}
+              {venta?.[0]?.cliente ? (
+                <Text className="text-center text-xs font-semibold text-[#756B65]">
+                  Cliente: {venta[0].cliente}
+                </Text>
+              ) : null}
+              {venta?.map((linea) => (
+                <Text key={linea.id} className="text-center text-xs text-[#756B65]" numberOfLines={1}>
+                  {linea.cantidad} × {linea.producto_nombre}
+                </Text>
+              ))}
+            </View>
+            <Text className="my-1 text-4xl font-black text-[#8B563D]">
+              {money(venta?.reduce((total, linea) => total + linea.total, 0) ?? 0)}
             </Text>
-            <Text className="my-1 text-4xl font-black text-[#246b61]">
-              {money(venta?.total ?? 0)}
-            </Text>
-            <Text className="mb-2 rounded-full bg-[#eaf3ee] px-3 py-1 text-xs font-bold text-[#246b61]">
+            <Text className="mb-2 rounded-full bg-[#F5E9E1] px-3 py-1 text-xs font-bold text-[#8B563D]">
               Inventario actualizado
             </Text>
             <Button title="Seguir vendiendo" icon="arrow-forward" onPress={onClose} />

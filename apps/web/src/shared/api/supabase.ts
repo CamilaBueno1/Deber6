@@ -35,6 +35,7 @@ export const supabase =
           autoRefreshToken: false,
           detectSessionInUrl: false,
           persistSession: false,
+          flowType: 'pkce',
         },
       })
     : null;

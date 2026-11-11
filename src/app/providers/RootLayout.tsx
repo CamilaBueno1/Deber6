@@ -39,17 +39,26 @@ function Guard() {
     const enReset = authRoute === 'reset-password';
     const enVerificacion = segments[0] === 'verify-email';
     if (!session && !enAuth && !enVerificacion) router.replace('/login');
-    else if (session && enAuth && !enReset) router.replace('/');
+    else if (session && enAuth && !enReset) {
+      const providers = session.user.app_metadata?.providers;
+      const providersList = Array.isArray(providers) ? providers : [];
+      const googleOnly =
+        (providersList.includes('google') && !providersList.includes('email')) ||
+        (!providersList.length && session.user.app_metadata?.provider === 'google');
+      const needsPasswordPrompt =
+        googleOnly && session.user.user_metadata?.password_setup_prompted !== true;
+      router.replace(needsPasswordPrompt ? '/(app)/cambiar-password?desdeGoogle=1' : '/');
+    }
   }, [session, loading, processingUrl, segments, router]);
 
   if (loading) {
     return (
-      <View className="flex-1 items-center justify-center gap-3 bg-[#f3f8f2]">
-        <View className="h-14 w-14 items-center justify-center rounded-[20px] border border-white bg-[#dff3e7]">
-          <Ionicons name="storefront" size={27} color="#16896a" />
+      <View className="flex-1 items-center justify-center gap-3 bg-[#FFFAF5]">
+        <View className="h-14 w-14 items-center justify-center rounded-[20px] border border-white bg-[#FCE5D8]">
+          <Ionicons name="storefront" size={27} color="#D97955" />
         </View>
-        <ActivityIndicator size="small" color="#246b61" />
-        <Text className="text-sm font-semibold text-[#58736a]">Abriendo tu tienda...</Text>
+        <ActivityIndicator size="small" color="#8B563D" />
+        <Text className="text-sm font-semibold text-[#756B65]">Abriendo tu tienda...</Text>
       </View>
     );
   }

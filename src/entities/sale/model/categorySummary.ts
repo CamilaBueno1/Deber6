@@ -10,10 +10,12 @@ export type ResumenCategoria = {
 
 export function resumirVentasPorCategoria(ventas: Venta[]): ResumenCategoria[] {
   const resumen = new Map<string, ResumenCategoria>();
+  const ticketsPorCategoria = new Map<string, Set<string>>();
 
   for (const venta of ventas) {
     const categoria = nombreCategoria(venta.categoria);
     const clave = claveCategoria(categoria);
+    const tickets = ticketsPorCategoria.get(clave) ?? new Set<string>();
     const actual = resumen.get(clave) ?? {
       categoria,
       unidades: 0,
@@ -23,7 +25,12 @@ export function resumirVentasPorCategoria(ventas: Venta[]): ResumenCategoria[] {
 
     actual.unidades += venta.cantidad;
     actual.ingresos += venta.total;
-    actual.transacciones += 1;
+    const ticket = venta.ticket_id ?? venta.id;
+    if (!tickets.has(ticket)) {
+      actual.transacciones += 1;
+      tickets.add(ticket);
+      ticketsPorCategoria.set(clave, tickets);
+    }
     resumen.set(clave, actual);
   }
 

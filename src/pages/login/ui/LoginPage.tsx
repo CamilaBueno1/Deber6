@@ -1,16 +1,15 @@
 import AuthShell from '@/shared/ui/AuthShell';
 import Button from '@/shared/ui/Button';
+import GoogleButton from '@/features/auth/ui/GoogleButton';
 import Input from '@/shared/ui/Input';
 import TextLink from '@/shared/ui/TextLink';
 import { signInWithGoogle } from '@/features/auth/api/auth';
-import { flags, GOOGLE_WELCOME_STORAGE_KEY } from '@/features/auth/model/flags';
+import { flags } from '@/features/auth/model/flags';
 import { aviso, showError } from '@/shared/lib/notify';
 import { supabase } from '@/shared/lib/supabase';
-import { Ionicons } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
 import { useEffect, useState, type ReactNode } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -63,25 +62,12 @@ export default function Login() {
 
   const conGoogle = async () => {
     setLoading(true);
-    let welcomeStored = false;
+    flags.welcomeShown = false;
     try {
-      await AsyncStorage.setItem(GOOGLE_WELCOME_STORAGE_KEY, 'true');
-      welcomeStored = true;
-      flags.welcomeShown = false;
       const signedIn = await signInWithGoogle();
-      if (!signedIn) {
-        flags.welcomeShown = true;
-        await AsyncStorage.removeItem(GOOGLE_WELCOME_STORAGE_KEY);
-      }
+      if (!signedIn) flags.welcomeShown = true;
     } catch (error) {
       flags.welcomeShown = true;
-      if (welcomeStored) {
-        try {
-          await AsyncStorage.removeItem(GOOGLE_WELCOME_STORAGE_KEY);
-        } catch (cleanupError) {
-          showError(cleanupError, 'No pudimos limpiar el intento de inicio con Google');
-        }
-      }
       showError(error, 'No pudimos entrar con Google');
     } finally {
       setLoading(false);
@@ -138,28 +124,14 @@ export default function Login() {
           <View className="gap-3 rounded-[22px] border border-[#ecebe3] bg-[#f8f8f3] p-3.5">
             <View className="flex-row items-center gap-3">
               <View className="h-px flex-1 bg-[#e2ded4]" />
-              <Text className="text-[10px] font-bold uppercase tracking-[1.4px] text-[#879792]">
+              <Text className="text-[10px] font-bold uppercase tracking-[1.4px] text-[#867A72]">
                 O continúa con
               </Text>
               <View className="h-px flex-1 bg-[#e2ded4]" />
             </View>
 
             <Animated.View style={googleAnimatedStyle}>
-              <Pressable
-                onPress={conGoogle}
-                onPressIn={() => {
-                  if (!loading) googleScale.set(withSpring(0.975, { damping: 16, stiffness: 300 }));
-                }}
-                onPressOut={() => {
-                  googleScale.set(withSpring(1, { damping: 14, stiffness: 260 }));
-                }}
-                disabled={loading}
-                accessibilityRole="button"
-                className="flex-row items-center justify-center gap-2.5 rounded-2xl border border-[#e5e8df] bg-white py-3.5"
-              >
-                <Ionicons name="logo-google" size={19} color="#ea4335" />
-                <Text className="text-sm font-bold text-[#243b38]">Continuar con Google</Text>
-              </Pressable>
+              <GoogleButton loading={loading} onPress={conGoogle} />
             </Animated.View>
           </View>
         </LoginEntrance>

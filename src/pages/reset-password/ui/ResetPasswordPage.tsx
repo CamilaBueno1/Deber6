@@ -1,7 +1,9 @@
 import AuthShell from '@/shared/ui/AuthShell';
 import Button from '@/shared/ui/Button';
 import Input from '@/shared/ui/Input';
+import PasswordStrengthBar from '@/shared/ui/PasswordStrengthBar';
 import { aviso, showError } from '@/shared/lib/notify';
+import { evaluarPassword } from '@/shared/lib/password';
 import { supabase } from '@/shared/lib/supabase';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -13,9 +15,10 @@ export default function ResetPassword() {
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [loading, setLoading] = useState(false);
+  const passwordEvaluation = evaluarPassword(password);
 
   const guardar = async () => {
-    if (password.length < 6) return aviso('La contraseña debe tener al menos 6 caracteres.');
+    if (!passwordEvaluation.valid) return aviso('La contraseña debe tener 8 caracteres, mayúscula, minúscula y número.');
     if (password !== confirm) return aviso('Las dos contraseñas deben ser iguales.');
     setLoading(true);
     try {
@@ -37,26 +40,27 @@ export default function ResetPassword() {
       showWelcomeAnimation
     >
       <View className="gap-3">
-        <View className="flex-row items-center gap-3 rounded-2xl border border-[#dcecdf] bg-[#f1f8f1] p-3.5">
-          <View className="h-10 w-10 items-center justify-center rounded-xl bg-[#ddf4e6]">
-            <Ionicons name="shield-checkmark-outline" size={20} color="#16896a" />
+        <View className="flex-row items-center gap-3 rounded-2xl border border-[#F0DDD2] bg-[#FFF1E8] p-3.5">
+          <View className="h-10 w-10 items-center justify-center rounded-xl bg-[#FCE5D8]">
+            <Ionicons name="shield-checkmark-outline" size={20} color="#D97955" />
           </View>
           <View className="flex-1 gap-0.5">
-            <Text className="text-sm font-bold text-[#243b38]">Protege tu cuenta</Text>
-            <Text className="text-xs leading-4 text-[#71817b]">
-              Usa al menos 6 caracteres. Toca el ojo para mostrar u ocultar cada campo.
+            <Text className="text-sm font-bold text-[#493A36]">Protege tu cuenta</Text>
+            <Text className="text-xs leading-4 text-[#756B65]">
+              Usa al menos 8 caracteres con mayúscula, minúscula y número. Toca el ojo para mostrar u ocultar cada campo.
             </Text>
           </View>
         </View>
         <Input
           label="Nueva contraseña"
           icon="lock-closed-outline"
-          placeholder="Mínimo 6 caracteres"
+          placeholder="Mínimo 8 caracteres"
           secureTextEntry
           value={password}
           onChangeText={setPassword}
           returnKeyType="next"
         />
+        <PasswordStrengthBar password={password} />
         <Input
           label="Repite la contraseña"
           icon="shield-checkmark-outline"

@@ -15,11 +15,11 @@ const animations = {
 };
 
 const surfaces: Record<Variant, { background: string; border: string }> = {
-  growth: { background: '#e5f5e7', border: '#cce9d0' },
+  growth: { background: '#FFF0E4', border: '#F2D2BF' },
   store: { background: '#fff2d7', border: '#f0dfb8' },
   sales: { background: '#ffede6', border: '#f4d8ca' },
-  cash: { background: '#e4f4eb', border: '#cae7d5' },
-  business: { background: '#e6f4e6', border: '#cde6d0' },
+  cash: { background: '#FFF1E3', border: '#F2D4C1' },
+  business: { background: '#FFF0E5', border: '#F2D6C1' },
   profile: { background: '#f8edcf', border: '#eadcb5' },
 };
 
@@ -45,7 +45,7 @@ export default function SectionLottie({ variant, title, caption }: Props) {
       style={{
         backgroundColor: surface.background,
         borderColor: surface.border,
-        shadowColor: '#526b58',
+        shadowColor: '#A25D4A',
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.08,
         shadowRadius: 9,
@@ -64,10 +64,10 @@ export default function SectionLottie({ variant, title, caption }: Props) {
         />
       </View>
       <View className="flex-1 gap-1">
-        <Text className="text-sm font-extrabold text-[#23443a]">{title}</Text>
-        <Text className="text-xs leading-4 text-[#61766b]">{caption}</Text>
+        <Text className="text-sm font-extrabold text-[#5A3D35]">{title}</Text>
+        <Text className="text-xs leading-4 text-[#756B65]">{caption}</Text>
       </View>
-      <View className="mr-1 h-2 w-2 rounded-full bg-[#39a876]" />
+      <View className="mr-1 h-2 w-2 rounded-full bg-[#D97955]" />
     </View>
   );
 }

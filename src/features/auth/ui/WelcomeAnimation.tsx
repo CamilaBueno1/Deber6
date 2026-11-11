@@ -90,7 +90,7 @@ export function WelcomeIllustration({
               width: 118,
               height: 118,
               borderRadius: 59,
-              backgroundColor: darkBg ? 'rgba(244, 202, 125, 0.12)' : 'rgba(47, 128, 107, 0.1)',
+              backgroundColor: darkBg ? 'rgba(244, 202, 125, 0.18)' : 'rgba(217, 121, 85, 0.12)',
             }}
           />
           <View
@@ -102,7 +102,7 @@ export function WelcomeIllustration({
               width: 164,
               height: 15,
               borderRadius: 99,
-              backgroundColor: 'rgba(16, 54, 46, 0.22)',
+              backgroundColor: 'rgba(138, 81, 71, 0.18)',
             }}
           />
 
@@ -117,7 +117,7 @@ export function WelcomeIllustration({
               backgroundColor: '#f8f0df',
               borderWidth: 2,
               borderColor: '#fffaf0',
-              shadowColor: '#102d28',
+              shadowColor: '#493A36',
               shadowOffset: { width: 0, height: 8 },
               shadowOpacity: 0.2,
               shadowRadius: 12,
@@ -132,7 +132,7 @@ export function WelcomeIllustration({
                 width: 78,
                 height: 57,
                 borderRadius: 8,
-                backgroundColor: '#c9ded1',
+                backgroundColor: '#F2E6D9',
                 borderWidth: 3,
                 borderColor: '#fffdf5',
                 overflow: 'hidden',
@@ -142,7 +142,7 @@ export function WelcomeIllustration({
               <View style={{ position: 'absolute', left: 0, right: 0, top: 44, height: 3, backgroundColor: '#fffdf5' }} />
               <View style={{ position: 'absolute', left: 13, bottom: 4, width: 11, height: 15, borderRadius: 4, backgroundColor: '#d88763' }} />
               <View style={{ position: 'absolute', left: 34, bottom: 4, width: 13, height: 19, borderRadius: 5, backgroundColor: '#dfb65e' }} />
-              <View style={{ position: 'absolute', right: 9, bottom: 4, width: 12, height: 13, borderRadius: 4, backgroundColor: '#5d9b78' }} />
+              <View style={{ position: 'absolute', right: 9, bottom: 4, width: 12, height: 13, borderRadius: 4, backgroundColor: '#D97955' }} />
             </View>
             <View
               style={{
@@ -153,7 +153,7 @@ export function WelcomeIllustration({
                 height: 57,
                 borderTopLeftRadius: 9,
                 borderTopRightRadius: 9,
-                backgroundColor: '#326f5d',
+                backgroundColor: '#9B5B3E',
                 borderWidth: 2,
                 borderColor: '#fffdf5',
                 alignItems: 'center',
@@ -173,7 +173,7 @@ export function WelcomeIllustration({
               width: 148,
               height: 34,
               borderRadius: 12,
-              backgroundColor: '#245e50',
+              backgroundColor: '#A95743',
               borderWidth: 2,
               borderColor: '#f8f0df',
               flexDirection: 'row',
@@ -235,7 +235,7 @@ export function WelcomeIllustration({
                 flexDirection: 'row',
                 alignItems: 'center',
                 gap: 5,
-                shadowColor: '#173f39',
+                shadowColor: '#493A36',
                 shadowOffset: { width: 0, height: 4 },
                 shadowOpacity: 0.2,
                 shadowRadius: 7,
@@ -244,10 +244,10 @@ export function WelcomeIllustration({
               stockStyle,
             ]}
           >
-            <Ionicons name="cube" size={15} color="#214e43" />
+            <Ionicons name="cube" size={15} color="#A95743" />
             <View>
-              <Text style={{ color: '#42604f', fontSize: 7, fontWeight: '800', letterSpacing: 0.7 }}>STOCK</Text>
-              <Text style={{ color: '#173f39', fontSize: 12, fontWeight: '900' }}>24</Text>
+              <Text style={{ color: '#8B5C49', fontSize: 7, fontWeight: '800', letterSpacing: 0.7 }}>STOCK</Text>
+              <Text style={{ color: '#493A36', fontSize: 12, fontWeight: '900' }}>24</Text>
             </View>
           </Animated.View>
 
@@ -266,7 +266,7 @@ export function WelcomeIllustration({
                 backgroundColor: '#fffdf6',
                 borderWidth: 1,
                 borderColor: '#eedfc4',
-                shadowColor: '#173f39',
+                shadowColor: '#493A36',
                 shadowOffset: { width: 0, height: 4 },
                 shadowOpacity: 0.18,
                 shadowRadius: 8,
@@ -276,10 +276,10 @@ export function WelcomeIllustration({
             ]}
           >
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-              <Text style={{ color: '#587466', fontSize: 7, fontWeight: '900', letterSpacing: 0.6 }}>VENTA LISTA</Text>
-              <Ionicons name="checkmark-circle" size={13} color="#348a69" />
+              <Text style={{ color: '#8B5C49', fontSize: 7, fontWeight: '900', letterSpacing: 0.6 }}>VENTA LISTA</Text>
+              <Ionicons name="checkmark-circle" size={13} color="#D97955" />
             </View>
-            <View style={{ height: 3, width: 46, marginTop: 7, borderRadius: 3, backgroundColor: '#d8e6d9' }} />
+            <View style={{ height: 3, width: 46, marginTop: 7, borderRadius: 3, backgroundColor: '#F2D8CA' }} />
             <View style={{ height: 3, width: 31, marginTop: 4, borderRadius: 3, backgroundColor: '#f0d7b0' }} />
           </Animated.View>
         </Animated.View>
@@ -328,7 +328,7 @@ export function WelcomeWorkspaceBanner({
   return (
     <Animated.View style={cardAnimatedStyle}>
       <LinearGradient
-        colors={['#174942', '#216359', '#2d8274']}
+        colors={['#F7D6C3', '#FBE6C9', '#FBE9DD']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={{
@@ -337,8 +337,8 @@ export function WelcomeWorkspaceBanner({
           position: 'relative',
           overflow: 'hidden',
           borderWidth: 1,
-          borderColor: '#3a9585',
-          shadowColor: '#16453e',
+          borderColor: '#F1CDB9',
+          shadowColor: '#A95743',
           shadowOffset: { width: 0, height: 8 },
           shadowOpacity: 0.22,
           shadowRadius: 16,
@@ -354,7 +354,7 @@ export function WelcomeWorkspaceBanner({
             width: 150,
             height: 150,
             borderRadius: 999,
-            backgroundColor: 'rgba(255, 255, 255, 0.07)',
+            backgroundColor: 'rgba(255, 255, 255, 0.42)',
           }}
         />
         <View
@@ -366,26 +366,26 @@ export function WelcomeWorkspaceBanner({
             width: 120,
             height: 120,
             borderRadius: 999,
-            backgroundColor: 'rgba(243, 207, 131, 0.08)',
+            backgroundColor: 'rgba(233, 161, 91, 0.18)',
           }}
         />
 
         <View className="flex-row items-center justify-between gap-2">
           <View className="flex-1 gap-1.5 pr-1">
             <Animated.View style={badgeAnimatedStyle}>
-              <View className="flex-row items-center gap-1.5 self-start rounded-full border border-[#f3cf83]/30 bg-[#123d37]/80 px-2.5 py-1">
+              <View className="flex-row items-center gap-1.5 self-start rounded-full border border-[#EBC7B3] bg-white/70 px-2.5 py-1">
                 <Ionicons
                   name={recienRegistrado ? 'rocket' : 'sparkles'}
                   size={12}
-                  color="#f3cf83"
+                  color="#A95743"
                 />
-                <Text className="text-[10px] font-extrabold uppercase tracking-wider text-[#f3cf83]">
+                <Text className="text-[10px] font-extrabold uppercase tracking-wider text-[#8B5147]">
                   {recienRegistrado ? '¡Cuenta lista!' : saludoDelDia()}
                 </Text>
               </View>
             </Animated.View>
 
-            <Text className="text-[21px] font-extrabold leading-6 tracking-tight text-white">
+            <Text className="text-[21px] font-extrabold leading-6 tracking-tight text-[#493A36]">
               {recienRegistrado
                 ? `¡Bienvenido, ${nombre}!`
                 : recienLlegado
@@ -393,7 +393,7 @@ export function WelcomeWorkspaceBanner({
                   : `¡Impulsa tu día, ${nombre}!`}
             </Text>
 
-            <Text className="text-xs leading-4.5 text-[#d7ede4]">
+            <Text className="text-xs leading-4.5 text-[#765F57]">
               {negocioNombre
                 ? `Controlando ${negocioNombre}${cajaHoy ? ` · Caja hoy: ${cajaHoy}` : ''}`
                 : 'Crea tu primer negocio para registrar ventas y ganancias.'}
@@ -403,17 +403,17 @@ export function WelcomeWorkspaceBanner({
           <WelcomeIllustration width={118} height={102} darkBg />
         </View>
 
-        <View className="mt-3.5 flex-row items-center gap-2.5 border-t border-white/15 pt-3">
+        <View className="mt-3.5 flex-row items-center gap-2.5 border-t border-[#EBC7B3] pt-3">
           <Pressable
             onPress={() => router.push(negocioNombre ? '/caja' : '/negocios')}
-            className="flex-1 flex-row items-center justify-center gap-1.5 rounded-xl bg-[#f3cf83] px-3 py-2.5 active:opacity-85"
+            className="flex-1 flex-row items-center justify-center gap-1.5 rounded-xl bg-[#A95743] px-3 py-2.5 active:opacity-85"
           >
             <Ionicons
               name={negocioNombre ? 'add-circle' : 'storefront'}
               size={16}
-              color="#1b433c"
+              color="#FFFFFF"
             />
-            <Text className="text-xs font-extrabold text-[#1b433c]">
+            <Text className="text-xs font-extrabold text-white">
               {negocioNombre
                 ? jornadaAbierta
                   ? 'Registrar movimiento'
@@ -424,10 +424,10 @@ export function WelcomeWorkspaceBanner({
 
           <Pressable
             onPress={() => router.push('/negocios')}
-            className="flex-row items-center justify-center gap-1.5 rounded-xl border border-white/25 bg-white/15 px-3.5 py-2.5 active:opacity-80"
+            className="flex-row items-center justify-center gap-1.5 rounded-xl border border-[#EBC7B3] bg-white/60 px-3.5 py-2.5 active:opacity-80"
           >
-            <Ionicons name="storefront-outline" size={15} color="#ffffff" />
-            <Text className="text-xs font-bold text-white">Negocios</Text>
+            <Ionicons name="storefront-outline" size={15} color="#A95743" />
+            <Text className="text-xs font-bold text-[#493A36]">Negocios</Text>
           </Pressable>
         </View>
       </LinearGradient>

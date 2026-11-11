@@ -22,7 +22,7 @@ type SurfaceProps = Omit<Props, 'delay' | 'animated'>;
 function CardSurface({ children, className = '', style }: SurfaceProps) {
   return (
     <View
-      className={`rounded-[26px] border bg-[#fffefa] p-4 ${className}`}
+      className={`rounded-[26px] border bg-[#FFFFFF] p-4 ${className}`}
       style={[
         {
           borderColor: '#ffffff',
@@ -70,7 +70,7 @@ function AnimatedCard({ children, className, delay = 0, style }: Props) {
 
 const styles = {
   shadow: {
-    shadowColor: '#51745f',
+    shadowColor: '#806D62',
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.1,
     shadowRadius: 14,

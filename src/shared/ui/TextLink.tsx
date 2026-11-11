@@ -23,9 +23,9 @@ export default function TextLink({ label, onPress, prefix, className = '' }: Pro
           hitSlop={8}
           className="py-1"
         >
-          <Text className="text-sm text-[#71817b]">
+          <Text className="text-sm text-[#756B65]">
             {prefix ? `${prefix} ` : ''}
-            <Text className="font-bold text-[#246b61] underline">{label}</Text>
+            <Text className="font-bold text-[#8B563D] underline">{label}</Text>
           </Text>
         </Pressable>
       </Animated.View>

@@ -12,21 +12,21 @@ export default function RecentMovements({ movimientos }: { movimientos: Movimien
   return (
     <Card delay={240} className="gap-1">
       <View className="mb-1 flex-row items-center justify-between">
-        <Text className="text-base font-bold text-[#243b38]">Últimos movimientos</Text>
+        <Text className="text-base font-bold text-[#493A36]">Últimos movimientos</Text>
         <Pressable
           onPress={() => router.push('/caja')}
-          className="flex-row items-center gap-1 rounded-full bg-[#e6f0e9] px-3 py-1 active:opacity-75"
+          className="flex-row items-center gap-1 rounded-full bg-[#F4E7DC] px-3 py-1 active:opacity-75"
         >
-          <Text className="text-xs font-bold text-[#246b61]">Ir a Caja</Text>
-          <Ionicons name="arrow-forward" size={13} color="#246b61" />
+          <Text className="text-xs font-bold text-[#8B563D]">Ir a Caja</Text>
+          <Ionicons name="arrow-forward" size={13} color="#8B563D" />
         </Pressable>
       </View>
       {movimientos.length === 0 ? (
         <View className="items-center gap-2 py-4">
-          <View className="h-10 w-10 items-center justify-center rounded-full bg-[#f4efe4]">
-            <Ionicons name="receipt-outline" size={20} color="#879792" />
+          <View className="h-10 w-10 items-center justify-center rounded-full bg-[#F8EDE0]">
+            <Ionicons name="receipt-outline" size={20} color="#867A72" />
           </View>
-          <Text className="text-center text-sm text-[#71817b]">
+          <Text className="text-center text-sm text-[#756B65]">
             Aún no registras movimientos. Ve a la pestaña Caja para empezar.
           </Text>
         </View>
@@ -46,10 +46,10 @@ export default function RecentMovements({ movimientos }: { movimientos: Movimien
                 <Ionicons name={t.icon} size={18} color={t.color} />
               </View>
               <View className="flex-1">
-                <Text className="font-bold text-[#243b38]" numberOfLines={1}>
+                <Text className="font-bold text-[#493A36]" numberOfLines={1}>
                   {m.concepto}
                 </Text>
-                <Text className="text-xs text-[#879792]">
+                <Text className="text-xs text-[#867A72]">
                   {m.fecha} · {t.label}
                   {m.cliente ? ` · ${m.cliente}` : ''}
                 </Text>

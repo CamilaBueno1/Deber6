@@ -33,15 +33,15 @@ export default function OpenDayCard({ negocioId, sugerido, onDone }: Props) {
   };
 
   return (
-    <Card delay={90} className="gap-3.5 border-[#e8d7b4] bg-[#fffdf8]">
+    <Card delay={90} className="gap-3.5 border-[#e8d7b4] bg-[#FFF7ED]">
       <View className="flex-row items-center justify-between">
         <View className="flex-row items-center gap-2.5">
           <View className="h-10 w-10 items-center justify-center rounded-2xl bg-[#f7efd9]">
             <Ionicons name="sunny" size={21} color="#d99a36" />
           </View>
           <View>
-            <Text className="text-lg font-bold text-[#243b38]">Empieza tu jornada</Text>
-            <Text className="text-xs text-[#71817b]">Registra tu efectivo inicial de hoy</Text>
+            <Text className="text-lg font-bold text-[#493A36]">Empieza tu jornada</Text>
+            <Text className="text-xs text-[#756B65]">Registra tu efectivo inicial de hoy</Text>
           </View>
         </View>
         {sugerido > 0 ? (
@@ -57,7 +57,7 @@ export default function OpenDayCard({ negocioId, sugerido, onDone }: Props) {
         ) : null}
       </View>
 
-      <Text className="text-sm leading-5 text-[#5d706c]">
+      <Text className="text-sm leading-5 text-[#6E625C]">
         Cuenta el efectivo con el que empiezas hoy. El valor sugerido es una referencia; ajústalo
         según el dinero que tengas realmente en caja.
       </Text>

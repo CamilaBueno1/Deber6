@@ -3,6 +3,76 @@ import * as WebBrowser from 'expo-web-browser';
 import { Platform } from 'react-native';
 import { supabase } from '@/shared/lib/supabase';
 
+export async function verifyCurrentPassword(password: string) {
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError) throw userError;
+  if (!user?.email) throw new Error('No encontramos tu cuenta para verificar la contraseña.');
+
+  const providers = user.app_metadata?.providers ?? [];
+  const hasPassword =
+    (Array.isArray(providers) && providers.includes('email')) ||
+    user.user_metadata?.password_setup_completed === true;
+  if (!hasPassword) {
+    return true;
+  }
+
+  const { error } = await supabase.auth.signInWithPassword({ email: user.email, password });
+  if (error) throw error;
+  return true;
+}
+
+export async function changePassword(current: string | null, next: string) {
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError) throw userError;
+  if (!user) throw new Error('Tu sesión no está disponible.');
+
+  const providers = user.app_metadata?.providers ?? [];
+  const hasPassword =
+    (Array.isArray(providers) && providers.includes('email')) ||
+    user.user_metadata?.password_setup_completed === true;
+
+  if (hasPassword && (!current || !current.trim())) {
+    throw new Error('Debes escribir tu contraseña actual.');
+  }
+
+  if (current && current.trim()) {
+    await verifyCurrentPassword(current);
+  }
+
+  const { error } = await supabase.auth.updateUser({
+    password: next,
+    data: {
+      ...user.user_metadata,
+      password_setup_completed: true,
+      password_setup_prompted: true,
+    },
+  });
+  if (error) throw error;
+  return true;
+}
+
+export async function dismissGooglePasswordSetup() {
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+  if (userError) throw userError;
+  if (!user) throw new Error('Tu sesión no está disponible.');
+
+  const { error } = await supabase.auth.updateUser({
+    data: { ...user.user_metadata, password_setup_prompted: true },
+  });
+  if (error) throw error;
+}
+
 WebBrowser.maybeCompleteAuthSession();
 
 export const redirectTo = makeRedirectUri({
@@ -69,9 +139,6 @@ export async function createSessionFromUrl(url: string) {
 }
 
 export async function signInWithGoogle(): Promise<boolean> {
-  console.info('StockYa OAuth platform:', Platform.OS);
-  console.info('StockYa Google OAuth redirect URI:', redirectTo);
-
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: { redirectTo, skipBrowserRedirect: Platform.OS !== 'web' },
@@ -79,7 +146,6 @@ export async function signInWithGoogle(): Promise<boolean> {
   if (error) throw error;
 
   const requestedRedirect = new URL(data.url).searchParams.get('redirect_to');
-  console.info('StockYa Supabase redirect_to:', requestedRedirect);
   if (requestedRedirect !== redirectTo) {
     throw new Error(
       `Supabase está enviando el acceso a ${requestedRedirect ?? 'tu sitio web'} en vez de volver a StockYa. En Supabase, abre Authentication > URL Configuration y agrega exactamente esta dirección a Redirect URLs: ${redirectTo}`
@@ -89,7 +155,6 @@ export async function signInWithGoogle(): Promise<boolean> {
   if (Platform.OS === 'web') return true;
 
   const result = await WebBrowser.openAuthSessionAsync(data.url, redirectTo);
-  console.info('StockYa OAuth browser result:', result.type);
 
   if (result.type === 'success') {
     const session = await createSessionFromUrl(result.url);

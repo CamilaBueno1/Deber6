@@ -123,7 +123,7 @@ export default function ProductoForm({
       >
         <View className="flex-1 justify-end bg-black/50">
           <ScrollView
-            className="w-full rounded-t-[30px] border border-white bg-[#fffefa] px-5 pt-3"
+            className="w-full rounded-t-[30px] border border-white bg-[#FFFFFF] px-5 pt-3"
             contentContainerClassName="gap-3.5 pb-8"
             style={{ maxHeight: '92%', flexShrink: 1 }}
             keyboardShouldPersistTaps="always"
@@ -133,17 +133,17 @@ export default function ProductoForm({
             <View className="mb-1 h-1.5 w-12 self-center rounded-full bg-[#ddd5c7]" />
             <View className="flex-row items-center justify-between">
               <View>
-                <Text className="text-xl font-bold text-[#243b38]">
+                <Text className="text-xl font-bold text-[#493A36]">
                   {inicial ? 'Editar producto' : 'Nuevo producto'}
                 </Text>
-                <Text className="text-xs text-[#71817b]">Completa los datos de tu inventario</Text>
+                <Text className="text-xs text-[#756B65]">Completa los datos de tu inventario</Text>
               </View>
               <Pressable
                 onPress={onClose}
                 hitSlop={8}
-                className="h-10 w-10 items-center justify-center rounded-2xl bg-[#f1f0e8]"
+                className="h-10 w-10 items-center justify-center rounded-2xl bg-[#F5EEE6]"
               >
-                <Ionicons name="close" size={18} color="#5d706c" />
+                <Ionicons name="close" size={18} color="#6E625C" />
               </Pressable>
             </View>
 
@@ -151,8 +151,8 @@ export default function ProductoForm({
               {uriFoto ? (
                 <Image source={{ uri: uriFoto }} contentFit="cover" style={{ width: 76, height: 76, borderRadius: 18 }} />
               ) : (
-                <View className="h-[76px] w-[76px] items-center justify-center rounded-[22px] bg-[#e4f1e9]">
-                  <Ionicons name="image-outline" size={28} color="#348a76" />
+                <View className="h-[76px] w-[76px] items-center justify-center rounded-[22px] bg-[#F4E7DC]">
+                  <Ionicons name="image-outline" size={28} color="#D97955" />
                 </View>
               )}
               <View className="flex-1 gap-2">
@@ -197,7 +197,7 @@ export default function ProductoForm({
             />
             {categorias.length > 0 ? (
               <View className="gap-2">
-                <Text className="text-[11px] font-bold text-[#71817b]">
+                <Text className="text-[11px] font-bold text-[#756B65]">
                   Elige una existente o escribe una nueva
                 </Text>
                 <ScrollView
@@ -215,13 +215,13 @@ export default function ProductoForm({
                         onPress={() => setCategoria(opcion)}
                         className={`rounded-full border px-3 py-2 ${
                           activa
-                            ? 'border-[#16896a] bg-[#ddf4e6]'
-                            : 'border-[#e5e8df] bg-[#fffefa]'
+                            ? 'border-[#D97955] bg-[#FCE5D8]'
+                            : 'border-[#EFE3DA] bg-[#FFFFFF]'
                         }`}
                       >
                         <Text
                           className={`text-xs font-bold ${
-                            activa ? 'text-[#16896a]' : 'text-[#5d706c]'
+                            activa ? 'text-[#D97955]' : 'text-[#6E625C]'
                           }`}
                         >
                           {opcion}

@@ -1,5 +1,6 @@
 import { listarVentasDelPeriodo } from '@/entities/sale/api/ventas';
 import { resumirVentasPorCategoria } from '@/entities/sale/model/categorySummary';
+import { listarProductos } from '@/entities/product/api/productos';
 import { diasAtras, hoy } from '@/shared/lib/date';
 import { showError } from '@/shared/lib/notify';
 import type { Venta } from '@/shared/types';
@@ -23,7 +24,19 @@ export function useCategorySales(negocioId?: string) {
 
     setLoading(true);
     try {
-      const lista = await listarVentasDelPeriodo(negocioId, diasAtras(6), hoy());
+      const [ventasDelPeriodo, productos] = await Promise.all([
+        listarVentasDelPeriodo(negocioId, diasAtras(6), hoy()),
+        listarProductos(negocioId),
+      ]);
+      const categoriaPorProducto = new Map(
+        productos.map((producto) => [producto.id, producto.categoria]),
+      );
+      const lista = ventasDelPeriodo.map((venta) => ({
+        ...venta,
+        categoria: venta.categoria ?? (
+          venta.producto_id ? categoriaPorProducto.get(venta.producto_id) ?? null : null
+        ),
+      }));
       if (solicitudActual === solicitud.current) {
         setVentas(lista);
         setNegocioCargadoId(negocioId);

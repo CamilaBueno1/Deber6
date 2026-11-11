@@ -43,10 +43,10 @@ export default function MovimientoRow({ movimiento, onEdit, onDelete, readOnly =
           <Ionicons name={t.icon} size={19} color={t.color} />
         </View>
         <View className="flex-1">
-          <Text className="font-bold text-[#243b38]" numberOfLines={1}>
+          <Text className="font-bold text-[#493A36]" numberOfLines={1}>
             {movimiento.concepto}
           </Text>
-          <Text className="text-xs text-[#879792]">
+          <Text className="text-xs text-[#867A72]">
             {t.label}
             {movimiento.cliente ? ` · ${movimiento.cliente}` : ''}
             {movimiento.tipo === 'venta' && movimiento.costo_directo !== null
@@ -67,9 +67,9 @@ export default function MovimientoRow({ movimiento, onEdit, onDelete, readOnly =
               accessibilityLabel={`Editar ${movimiento.concepto}`}
               onPress={onEdit}
               hitSlop={6}
-              className="h-8 w-8 items-center justify-center rounded-full bg-[#f4efe4] active:opacity-70"
+              className="h-8 w-8 items-center justify-center rounded-full bg-[#F8EDE0] active:opacity-70"
             >
-              <Ionicons name="create-outline" size={16} color="#5d706c" />
+              <Ionicons name="create-outline" size={16} color="#6E625C" />
             </Pressable>
             <Pressable
               accessibilityRole="button"

@@ -1,5 +1,7 @@
-export type Tipo = 'venta' | 'gasto' | 'compra';
+export type Tipo = 'venta' | 'gasto' | 'compra' | 'abono';
+export type TipoMovimiento = Exclude<Tipo, 'abono'>;
 export type Estado = 'sin-datos' | 'positivo' | 'alerta' | 'critico';
+export type MetodoPagoVenta = 'efectivo' | 'transferencia';
 
 export type Negocio = {
   id: string;
@@ -52,6 +54,9 @@ export type Venta = {
   total: number;
   fecha: string;
   created_at: string;
+  ticket_id?: string | null;
+  cliente?: string | null;
+  metodo_pago?: MetodoPagoVenta;
 };
 
 export type Jornada = {
@@ -72,10 +77,11 @@ export type Movimiento = {
   monto: number;
   costo_directo: number | null;
   created_at: string;
-  origen?: 'venta';
+  origen?: 'venta' | 'abono';
+  metodo_pago?: MetodoPagoVenta;
 };
 export type MovimientoInput = {
-  tipo: Tipo;
+  tipo: TipoMovimiento;
   concepto: string;
   cliente: string | null;
   monto: number;

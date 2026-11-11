@@ -1,7 +1,7 @@
 import { TIPOS } from '@/shared/config/movimientos';
 import { parseMonto } from '@/shared/lib/format';
 import { aviso } from '@/shared/lib/notify';
-import type { Movimiento, MovimientoInput, Tipo } from '@/shared/types';
+import type { Movimiento, MovimientoInput, TipoMovimiento } from '@/shared/types';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import {
@@ -18,7 +18,7 @@ import Input from '@/shared/ui/Input';
 
 type Props = {
   visible: boolean;
-  tipo: Tipo;
+  tipo: TipoMovimiento;
   inicial?: Movimiento;
   saving: boolean;
   onSubmit: (input: MovimientoInput) => void;
@@ -69,7 +69,7 @@ export default function MovimientoForm({
       >
         <View className="flex-1 justify-end bg-black/50">
           <ScrollView
-            className="w-full rounded-t-[30px] border border-white bg-[#fffefa] px-5 pt-3"
+            className="w-full rounded-t-[30px] border border-white bg-[#FFFFFF] px-5 pt-3"
             contentContainerClassName="gap-3.5 pb-8"
             style={{ maxHeight: '90%' }}
             keyboardShouldPersistTaps="always"
@@ -84,18 +84,22 @@ export default function MovimientoForm({
                   <Ionicons name={t.icon} size={20} color={t.color} />
                 </View>
                 <View>
-                  <Text className="text-xl font-bold text-[#243b38]">
+                  <Text className="text-xl font-bold text-[#493A36]">
                     {inicial ? 'Editar' : 'Registrar'} {t.label.toLowerCase()}
                   </Text>
-                  <Text className="text-xs text-[#71817b]">Completa los datos del movimiento</Text>
+                  <Text className="text-xs text-[#756B65]">
+                    {tipo === 'venta'
+                      ? 'Usa esto solo para ingresos que no vienen de un producto del inventario.'
+                      : 'Completa los datos del movimiento'}
+                  </Text>
                 </View>
               </View>
               <Pressable
                 onPress={onClose}
                 hitSlop={8}
-                className="h-8 w-8 items-center justify-center rounded-full bg-[#f4efe4]"
+                className="h-8 w-8 items-center justify-center rounded-full bg-[#F8EDE0]"
               >
-                <Ionicons name="close" size={18} color="#5d706c" />
+                <Ionicons name="close" size={18} color="#6E625C" />
               </Pressable>
             </View>
 
@@ -135,7 +139,7 @@ export default function MovimientoForm({
                   value={costoDirecto}
                   onChangeText={setCostoDirecto}
                 />
-                <Text className="-mt-2 text-[11px] leading-4 text-[#71817b]">
+                <Text className="-mt-2 text-[11px] leading-4 text-[#756B65]">
                   Registra cuánto costaron los productos o insumos usados en esta venta. Si no tuvo
                   costo directo, escribe 0. No repitas aquí gastos ni compras ya registrados en caja.
                 </Text>

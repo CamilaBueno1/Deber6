@@ -3,6 +3,7 @@ import Card from '@/shared/ui/Card';
 import Header from '@/widgets/app-header/ui/Header';
 import SectionLottie from '@/shared/ui/SectionLottie';
 import Input from '@/shared/ui/Input';
+import SettingsRow from '@/shared/ui/SettingsRow';
 import { useAuth } from '@/entities/session/model/AuthContext';
 import { useNegocio } from '@/features/business-management/model/NegocioContext';
 import { aviso, showError } from '@/shared/lib/notify';
@@ -11,9 +12,9 @@ import { inicialesUsuario, nombreCompletoUsuario } from '@/entities/user/model/u
 import { Ionicons } from '@expo/vector-icons';
 import type { Session } from '@supabase/supabase-js';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter, type Href } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from 'react-native';
+import { Image, KeyboardAvoidingView, Platform, ScrollView, Text, View } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -34,7 +35,7 @@ const miembroDesde = (iso?: string) => {
   return `${MESES[d.getMonth()]} ${d.getFullYear()}`;
 };
 
-function PulsingAvatar({ iniciales }: { iniciales: string }) {
+function PulsingAvatar({ iniciales, avatarUrl }: { iniciales: string; avatarUrl?: string | null }) {
   const pop = useSharedValue(0.6);
 
   useEffect(() => {
@@ -42,11 +43,30 @@ function PulsingAvatar({ iniciales }: { iniciales: string }) {
   }, [pop]);
   const popStyle = useAnimatedStyle(() => ({ transform: [{ scale: pop.get() }] }));
 
+  if (avatarUrl) {
+    return (
+      <View style={{ width: 80, height: 80, alignItems: 'center', justifyContent: 'center' }}>
+        <Animated.View style={popStyle}>
+          <Image
+            source={{ uri: avatarUrl }}
+            className="h-20 w-20 rounded-full border-4 border-white/90"
+            style={{
+              shadowColor: '#000',
+              shadowOffset: { width: 0, height: 5 },
+              shadowOpacity: 0.2,
+              shadowRadius: 8,
+            }}
+          />
+        </Animated.View>
+      </View>
+    );
+  }
+
   return (
     <View style={{ width: 80, height: 80, alignItems: 'center', justifyContent: 'center' }}>
       <Animated.View style={popStyle}>
         <View
-          className="h-20 w-20 items-center justify-center rounded-full border-4 border-white/90 bg-[#f3cf83]"
+          className="h-20 w-20 items-center justify-center rounded-full border-4 border-white/90 bg-[#FFD58F]"
           style={{
             shadowColor: '#000',
             shadowOffset: { width: 0, height: 5 },
@@ -55,7 +75,7 @@ function PulsingAvatar({ iniciales }: { iniciales: string }) {
             elevation: 5,
           }}
         >
-          <Text className="text-2xl font-black text-[#173f39]">{iniciales}</Text>
+          <Text className="text-2xl font-black text-[#493A36]">{iniciales}</Text>
         </View>
       </Animated.View>
     </View>
@@ -83,12 +103,12 @@ function StatTile({
 
   return (
     <Animated.View style={[{ flex: 1 }, style]}>
-      <View className="items-center gap-1 rounded-2xl border border-white/15 bg-white/10 px-2 py-3">
-        <Ionicons name={icon} size={18} color="#f3cf83" />
-        <Text className="text-sm font-extrabold text-white" numberOfLines={1}>
+      <View className="items-center gap-1 rounded-2xl border border-white/70 bg-white/55 px-2 py-3">
+        <Ionicons name={icon} size={18} color="#D97955" />
+        <Text className="text-sm font-extrabold text-[#493A36]" numberOfLines={1}>
           {value}
         </Text>
-        <Text className="text-[10px] font-semibold uppercase tracking-wider text-[#bfe3d5]">
+        <Text className="text-[10px] font-semibold uppercase tracking-wider text-[#8A7B74]">
           {label}
         </Text>
       </View>
@@ -108,14 +128,12 @@ function MenuRow({
   color: string;
   title: string;
   subtitle: string;
-  href: Href;
+  href: string;
   delay: number;
 }) {
   const router = useRouter();
   const x = useSharedValue(-16);
   const o = useSharedValue(1);
-  const scale = useSharedValue(1);
-  const arrow = useSharedValue(0);
 
   useEffect(() => {
     x.set(withDelay(delay, withSpring(0, { damping: 16, stiffness: 170 })));
@@ -124,45 +142,12 @@ function MenuRow({
 
   const style = useAnimatedStyle(() => ({
     opacity: o.get(),
-    transform: [{ translateX: x.get() }, { scale: scale.get() }],
+    transform: [{ translateX: x.get() }],
   }));
-  const arrowStyle = useAnimatedStyle(() => ({ transform: [{ translateX: arrow.get() }] }));
 
   return (
     <Animated.View style={style}>
-      <Pressable
-        onPress={() => router.push(href)}
-        onPressIn={() => {
-          scale.set(withSpring(0.97, { damping: 15, stiffness: 300 }));
-          arrow.set(withSpring(5, { damping: 12, stiffness: 260 }));
-        }}
-        onPressOut={() => {
-          scale.set(withSpring(1, { damping: 13, stiffness: 260 }));
-          arrow.set(withSpring(0, { damping: 12, stiffness: 260 }));
-        }}
-        className="flex-row items-center gap-3 rounded-[22px] border border-white bg-[#fffefa] px-3.5 py-3"
-        style={{
-          shadowColor: '#243b38',
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.04,
-          shadowRadius: 5,
-          elevation: 1,
-        }}
-      >
-        <View
-          className="h-11 w-11 items-center justify-center rounded-2xl"
-          style={{ backgroundColor: color + '1f' }}
-        >
-          <Ionicons name={icon} size={21} color={color} />
-        </View>
-        <View className="flex-1">
-          <Text className="text-[15px] font-bold text-[#243b38]">{title}</Text>
-          <Text className="text-xs text-[#71817b]">{subtitle}</Text>
-        </View>
-        <Animated.View style={arrowStyle}>
-          <Ionicons name="chevron-forward" size={18} color="#a3b0ab" />
-        </Animated.View>
-      </Pressable>
+      <SettingsRow icon={icon} color={color} title={title} subtitle={subtitle} onPress={() => router.push(href as never)} />
     </Animated.View>
   );
 }
@@ -186,6 +171,7 @@ function ProfileDetails({ session }: { session: Session }) {
   }));
 
   const proveedor = session.user.app_metadata?.provider === 'google' ? 'Google' : 'Correo';
+  const avatarUrl = session.user.user_metadata?.avatar_url as string | undefined;
   const desde = miembroDesde(session.user.created_at);
 
   const guardarNombre = async () => {
@@ -209,7 +195,7 @@ function ProfileDetails({ session }: { session: Session }) {
     <>
       <Animated.View style={heroStyle}>
         <LinearGradient
-          colors={['#125b49', '#16896a', '#36aa77']}
+          colors={['#F7D6C3', '#FBE6C9', '#FBE9DD']}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
           style={{
@@ -217,8 +203,8 @@ function ProfileDetails({ session }: { session: Session }) {
             padding: 20,
             overflow: 'hidden',
             borderWidth: 1,
-            borderColor: '#76c895',
-            shadowColor: '#16453e',
+            borderColor: '#F1CDB9',
+            shadowColor: '#A95743',
             shadowOffset: { width: 0, height: 8 },
             shadowOpacity: 0.22,
             shadowRadius: 16,
@@ -234,22 +220,22 @@ function ProfileDetails({ session }: { session: Session }) {
               width: 160,
               height: 160,
               borderRadius: 80,
-              backgroundColor: 'rgba(255,255,255,0.06)',
+              backgroundColor: 'rgba(255,255,255,0.42)',
             }}
           />
 
           <View className="items-center gap-2">
-            <PulsingAvatar iniciales={iniciales} />
-            <Text className="mt-1 text-center text-xl font-extrabold text-white" numberOfLines={1}>
+            <PulsingAvatar iniciales={iniciales} avatarUrl={avatarUrl} />
+            <Text className="mt-1 text-center text-xl font-extrabold text-[#493A36]" numberOfLines={1}>
               {nombreActual || 'Mi perfil'}
             </Text>
-            <Text className="text-center text-sm text-[#d7ede4]" numberOfLines={1}>
+            <Text className="text-center text-sm text-[#765F57]" numberOfLines={1}>
               {session.user.email}
             </Text>
             {desde ? (
-              <View className="flex-row items-center gap-1.5 rounded-full border border-[#f3cf83]/35 bg-black/15 px-3 py-1">
-                <Ionicons name="ribbon-outline" size={12} color="#f3cf83" />
-                <Text className="text-[11px] font-bold text-[#f3cf83]">Emprendedor desde {desde}</Text>
+              <View className="flex-row items-center gap-1.5 rounded-full border border-[#EBC7B3] bg-white/70 px-3 py-1">
+                <Ionicons name="ribbon-outline" size={12} color="#A95743" />
+                <Text className="text-[11px] font-bold text-[#8B5147]">Emprendedor desde {desde}</Text>
               </View>
             ) : null}
           </View>
@@ -269,12 +255,12 @@ function ProfileDetails({ session }: { session: Session }) {
 
       <Card delay={120} className="gap-3.5">
         <View className="flex-row items-center gap-2.5">
-          <View className="h-9 w-9 items-center justify-center rounded-xl bg-[#e6f0e9]">
-            <Ionicons name="person" size={17} color="#246b61" />
+          <View className="h-9 w-9 items-center justify-center rounded-xl bg-[#F4E7DC]">
+            <Ionicons name="person" size={17} color="#8B563D" />
           </View>
           <View className="flex-1">
-            <Text className="text-base font-extrabold text-[#243b38]">Datos personales</Text>
-            <Text className="text-xs text-[#71817b]">Tu nombre aparece en el saludo de bienvenida.</Text>
+            <Text className="text-base font-extrabold text-[#493A36]">Datos personales</Text>
+            <Text className="text-xs text-[#756B65]">Tu nombre aparece en el saludo de bienvenida.</Text>
           </View>
         </View>
         <Input
@@ -291,7 +277,7 @@ function ProfileDetails({ session }: { session: Session }) {
           icon="mail-outline"
           value={session.user.email ?? ''}
           editable={false}
-          style={{ color: '#879792' }}
+          style={{ color: '#867A72' }}
         />
         <Button
           title="Guardar cambios"
@@ -302,16 +288,24 @@ function ProfileDetails({ session }: { session: Session }) {
       </Card>
 
       <View className="gap-2.5">
-        <Text className="px-1 text-xs font-bold uppercase tracking-wider text-[#5d706c]">
+        <Text className="px-1 text-xs font-bold uppercase tracking-wider text-[#6E625C]">
           Accesos rápidos
         </Text>
         <MenuRow
+          icon="lock-closed-outline"
+          color="#D97955"
+          title="Cambiar/Crear contraseña"
+          subtitle="Usa una contraseña segura para tu sesión"
+          href="/(app)/cambiar-password"
+          delay={180}
+        />
+        <MenuRow
           icon="storefront"
-          color="#246b61"
+          color="#8B563D"
           title="Mis negocios"
           subtitle="Crea, edita o cambia de negocio"
           href="/negocios"
-          delay={200}
+          delay={240}
         />
         <MenuRow
           icon="wallet"
@@ -319,7 +313,7 @@ function ProfileDetails({ session }: { session: Session }) {
           title="Vender rápido"
           subtitle="Registra ventas y descuenta el stock al instante"
           href="/vender"
-          delay={270}
+          delay={300}
         />
         <MenuRow
           icon="cube"
@@ -327,13 +321,13 @@ function ProfileDetails({ session }: { session: Session }) {
           title="Inventario"
           subtitle="Edita productos y comparte lo que debes reponer"
           href="/inventario"
-          delay={340}
+          delay={360}
         />
       </View>
 
       <View className="mt-1 flex-row items-center justify-center gap-1.5 py-2">
-        <Ionicons name="shield-checkmark" size={14} color="#879792" />
-        <Text className="text-xs text-[#879792]">StockYa · Tus datos están protegidos en la nube</Text>
+        <Ionicons name="shield-checkmark" size={14} color="#867A72" />
+        <Text className="text-xs text-[#867A72]">StockYa · Tus datos están protegidos en la nube</Text>
       </View>
     </>
   );
@@ -344,7 +338,7 @@ export default function AjustesScreen() {
   const { session } = useAuth();
 
   return (
-    <View className="flex-1 bg-[#f3f8f2]">
+    <View className="flex-1 bg-[#FFFAF5]">
       <Header eyebrow="Tu cuenta" title="Mi perfil" showLogout />
 
       <KeyboardAvoidingView
@@ -367,7 +361,7 @@ export default function AjustesScreen() {
             </>
           ) : (
             <Card className="gap-3">
-              <Text className="text-base font-bold text-[#243b38]">Sesión no disponible</Text>
+              <Text className="text-base font-bold text-[#493A36]">Sesión no disponible</Text>
               <Button
                 title="Ir a iniciar sesión"
                 icon="log-in-outline"

@@ -18,9 +18,9 @@ type Props = {
 };
 
 const BOX: Record<ButtonVariant, string> = {
-  primary: 'bg-[#16896a] border border-[#117456]',
-  dark: 'bg-[#125b49] border border-[#0e4d3e]',
-  outline: 'bg-[#fffefa] border border-[#e5e8df]',
+  primary: 'bg-[#A95743] border border-[#874435]',
+  dark: 'bg-[#A95743] border border-[#613826]',
+  outline: 'bg-[#FFFFFF] border border-[#EFE3DA]',
   ghost: 'bg-transparent border border-transparent',
   danger: 'bg-[#d66a54] border border-[#c05742]',
   dangerOutline: 'bg-[#fdf3f0] border border-[#efc7be]',
@@ -29,8 +29,8 @@ const BOX: Record<ButtonVariant, string> = {
 const TEXT: Record<ButtonVariant, string> = {
   primary: 'text-white',
   dark: 'text-white',
-  outline: 'text-[#243b38]',
-  ghost: 'text-[#246b61]',
+  outline: 'text-[#493A36]',
+  ghost: 'text-[#8B563D]',
   danger: 'text-white',
   dangerOutline: 'text-[#b84c37]',
 };
@@ -38,8 +38,8 @@ const TEXT: Record<ButtonVariant, string> = {
 const ICON: Record<ButtonVariant, string> = {
   primary: '#ffffff',
   dark: '#ffffff',
-  outline: '#16896a',
-  ghost: '#16896a',
+  outline: '#D97955',
+  ghost: '#D97955',
   danger: '#ffffff',
   dangerOutline: '#c4533d',
 };
@@ -58,21 +58,21 @@ const SIZE_TEXT: Record<ButtonSize, string> = {
 
 const SHADOW: Record<ButtonVariant, ViewStyle> = {
   primary: {
-    shadowColor: '#16896a',
+    shadowColor: '#D97955',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.16,
     shadowRadius: 9,
     elevation: 3,
   },
   dark: {
-    shadowColor: '#125b49',
+    shadowColor: '#A95743',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.16,
     shadowRadius: 8,
     elevation: 3,
   },
   outline: {
-    shadowColor: '#314b3f',
+    shadowColor: '#806D62',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.06,
     shadowRadius: 7,

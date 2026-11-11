@@ -105,7 +105,7 @@ export default function ConfirmEmailPage() {
                   id="new-password"
                   type="password"
                   autoComplete="new-password"
-                  minLength={6}
+                  minLength={8}
                   required
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
@@ -117,7 +117,7 @@ export default function ConfirmEmailPage() {
                   id="confirm-password"
                   type="password"
                   autoComplete="new-password"
-                  minLength={6}
+                  minLength={8}
                   required
                   value={passwordConfirmation}
                   onChange={(event) => setPasswordConfirmation(event.target.value)}

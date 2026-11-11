@@ -29,15 +29,15 @@ export default function CategorySalesCard({ categorias, loading }: Props) {
     <Card className="gap-3">
       <View className="flex-row items-center justify-between">
         <View className="flex-1">
-          <Text className="text-base font-extrabold text-[#243b38]">Categorías que más venden</Text>
-          <Text className="text-xs text-[#71817b]">Ingresos de los últimos 7 días</Text>
+          <Text className="text-base font-extrabold text-[#493A36]">Categorías que más venden</Text>
+          <Text className="text-xs text-[#756B65]">Ingresos de los últimos 7 días</Text>
         </View>
         <View className="h-10 w-10 items-center justify-center rounded-2xl bg-[#f7efd9]">
           <Ionicons name="podium-outline" size={20} color="#9a6b19" />
         </View>
       </View>
 
-      <View className="flex-row gap-2 rounded-2xl bg-[#f1f0e8] p-1">
+      <View className="flex-row gap-2 rounded-2xl bg-[#F5EEE6] p-1">
         {(['ingresos', 'unidades'] as const).map((opcion) => {
           const activa = orden === opcion;
           return (
@@ -50,7 +50,7 @@ export default function CategorySalesCard({ categorias, loading }: Props) {
                 activa ? 'bg-white' : ''
               }`}
             >
-              <Text className={`text-xs font-bold ${activa ? 'text-[#16896a]' : 'text-[#71817b]'}`}>
+              <Text className={`text-xs font-bold ${activa ? 'text-[#D97955]' : 'text-[#756B65]'}`}>
                 {opcion === 'ingresos' ? 'Por ingresos' : 'Por unidades'}
               </Text>
             </Pressable>
@@ -59,34 +59,34 @@ export default function CategorySalesCard({ categorias, loading }: Props) {
       </View>
 
       {loading ? (
-        <Text className="py-3 text-center text-xs font-semibold text-[#71817b]">
+        <Text className="py-3 text-center text-xs font-semibold text-[#756B65]">
           Cargando ventas por categoría...
         </Text>
       ) : categorias.length === 0 ? (
         <View className="items-center gap-1 border-t border-[#eee8dc] py-4">
-          <Text className="text-sm font-semibold text-[#5d706c]">Aún no hay ventas esta semana.</Text>
-          <Text className="text-center text-xs text-[#879792]">
+          <Text className="text-sm font-semibold text-[#6E625C]">Aún no hay ventas esta semana.</Text>
+          <Text className="text-center text-xs text-[#867A72]">
             Registra ventas para descubrir qué categorías tienen más movimiento.
           </Text>
         </View>
       ) : (
         <>
-          <View className="flex-row items-center justify-between rounded-2xl bg-[#f4efe4] px-3.5 py-3">
+          <View className="flex-row items-center justify-between rounded-2xl bg-[#F8EDE0] px-3.5 py-3">
             <View className="flex-1">
-              <Text className="text-[10px] font-bold uppercase tracking-wide text-[#71817b]">
+              <Text className="text-[10px] font-bold uppercase tracking-wide text-[#756B65]">
                 Categoría líder
               </Text>
-              <Text className="mt-0.5 text-sm font-extrabold text-[#243b38]" numberOfLines={1}>
+              <Text className="mt-0.5 text-sm font-extrabold text-[#493A36]" numberOfLines={1}>
                 {categoriasOrdenadas[0].categoria}
               </Text>
             </View>
             <View className="items-end">
-              <Text className="text-sm font-black text-[#246b61]">
+              <Text className="text-sm font-black text-[#8B563D]">
                 {Math.round(
                   valorTotal > 0 ? (categoriasOrdenadas[0][orden] / valorTotal) * 100 : 0,
                 )}%
               </Text>
-              <Text className="text-[10px] text-[#71817b]">
+              <Text className="text-[10px] text-[#756B65]">
                 {orden === 'ingresos' ? 'de ingresos' : 'de unidades'}
               </Text>
             </View>
@@ -101,39 +101,39 @@ export default function CategorySalesCard({ categorias, loading }: Props) {
                     <View className="flex-1 flex-row items-center gap-2">
                       <View
                         className={`h-6 w-6 items-center justify-center rounded-lg ${
-                          index === 0 ? 'bg-[#ddf4e6]' : 'bg-[#f1f0e8]'
+                          index === 0 ? 'bg-[#FCE5D8]' : 'bg-[#F5EEE6]'
                         }`}
                       >
                         <Text
                           className={`text-[10px] font-black ${
-                            index === 0 ? 'text-[#16896a]' : 'text-[#71817b]'
+                            index === 0 ? 'text-[#D97955]' : 'text-[#756B65]'
                           }`}
                         >
                           {index + 1}
                         </Text>
                       </View>
-                      <Text className="flex-1 text-xs font-bold text-[#344b47]" numberOfLines={1}>
+                      <Text className="flex-1 text-xs font-bold text-[#5A3D35]" numberOfLines={1}>
                         {categoria.categoria}
                       </Text>
                     </View>
                     <View className="items-end">
-                      <Text className="text-xs font-extrabold text-[#246b61]">
+                      <Text className="text-xs font-extrabold text-[#8B563D]">
                         {orden === 'ingresos' ? money(categoria.ingresos) : `${categoria.unidades} un.`}
                       </Text>
                       {orden === 'unidades' ? (
-                        <Text className="text-[10px] text-[#879792]">{money(categoria.ingresos)}</Text>
+                        <Text className="text-[10px] text-[#867A72]">{money(categoria.ingresos)}</Text>
                       ) : null}
                     </View>
                   </View>
                   <View className="ml-8 h-1.5 overflow-hidden rounded-full bg-[#ece6d9]">
                     <View
                       className={`h-full rounded-full ${
-                        index === 0 ? 'bg-[#348a76]' : 'bg-[#aec8b5]'
+                        index === 0 ? 'bg-[#D97955]' : 'bg-[#F2D4C1]'
                       }`}
                       style={{ width: `${Math.max(progreso * 100, 4)}%` }}
                     />
                   </View>
-                  <Text className="ml-8 text-[10px] text-[#879792]">
+                  <Text className="ml-8 text-[10px] text-[#867A72]">
                     {categoria.unidades} {categoria.unidades === 1 ? 'unidad' : 'unidades'} ·{' '}
                     {categoria.transacciones}{' '}
                     {categoria.transacciones === 1 ? 'venta' : 'ventas'}

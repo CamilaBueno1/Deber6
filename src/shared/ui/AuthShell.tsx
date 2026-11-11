@@ -59,7 +59,7 @@ export default function AuthShell({
     transform: [{ translateY: cardTranslateY.get() }],
   }));
   return (
-    <View className="flex-1 overflow-hidden bg-[#f3f8f2]">
+    <View className="flex-1 overflow-hidden bg-[#FFFAF5]">
       <Animated.View
         pointerEvents="none"
         style={{
@@ -69,7 +69,7 @@ export default function AuthShell({
           width: 170,
           height: 170,
           borderRadius: 85,
-          backgroundColor: 'rgba(22,137,106,0.08)',
+          backgroundColor: 'rgba(184,111,75,0.08)',
         }}
       />
       <View
@@ -122,7 +122,7 @@ export default function AuthShell({
                     borderWidth: 1,
                     borderColor: '#ffffff',
                     backgroundColor: '#fbfaf5',
-                    shadowColor: '#314b3f',
+                    shadowColor: '#806D62',
                     shadowOffset: { width: 0, height: 10 },
                     shadowOpacity: 0.08,
                     shadowRadius: 20,
@@ -138,29 +138,29 @@ export default function AuthShell({
                       width: 130,
                       height: 130,
                       borderRadius: 999,
-                      backgroundColor: 'rgba(22, 137, 106, 0.07)',
+                      backgroundColor: 'rgba(184, 111, 75, 0.07)',
                     }}
                   />
                   <View className="flex-row items-center justify-between gap-1">
                     <View className="flex-1 gap-1">
                       <View className="flex-row items-center gap-2">
                         <View
-                          className={`${compact ? 'h-9 w-9 rounded-xl' : 'h-10 w-10 rounded-[14px]'} items-center justify-center bg-[#ddf4e6]`}
+                          className={`${compact ? 'h-9 w-9 rounded-xl' : 'h-10 w-10 rounded-[14px]'} items-center justify-center bg-[#FCE5D8]`}
                           style={{
                             borderWidth: 1,
-                            borderColor: '#c4e7d2',
+                            borderColor: '#E7CDBA',
                           }}
                         >
                           <Ionicons
                             name="storefront"
                             size={compact ? 18 : 21}
-                            color="#16896a"
+                            color="#D97955"
                           />
                         </View>
                         <View className="flex-1">
                           <Text
                             numberOfLines={1}
-                            className={`${wide ? 'text-[27px]' : compact ? 'text-[21px]' : 'text-[24px]'} font-extrabold tracking-tight text-[#173a32]`}
+                            className={`${wide ? 'text-[27px]' : compact ? 'text-[21px]' : 'text-[24px]'} font-extrabold tracking-tight text-[#493A36]`}
                             style={{
                               fontFamily: Platform.select({
                                 ios: 'Georgia',
@@ -170,15 +170,15 @@ export default function AuthShell({
                               lineHeight: wide ? 33 : compact ? 26 : 29,
                             }}
                           >
-                            Stock<Text className="text-[#16896a]">Ya</Text>
+                            Stock<Text className="text-[#D97955]">Ya</Text>
                           </Text>
-                          <Text className="text-[9px] font-bold uppercase tracking-[1.1px] text-[#73877e]">
+                          <Text className="text-[9px] font-bold uppercase tracking-[1.1px] text-[#756B65]">
                             Tu tienda, en orden
                           </Text>
                         </View>
                       </View>
                       <Text
-                        className={`${wide ? 'text-xs leading-[17px]' : 'text-[10px] leading-[14px]'} text-[#71817b]`}
+                        className={`${wide ? 'text-xs leading-[17px]' : 'text-[10px] leading-[14px]'} text-[#756B65]`}
                       >
                         Vende rápido. Controla tu stock.
                       </Text>
@@ -204,11 +204,11 @@ export default function AuthShell({
 
             <Animated.View style={[cardStyle, wide ? { flex: 1.28 } : undefined]}>
               <View
-                className={`rounded-[30px] border border-white bg-[#fffefa] ${
+                className={`rounded-[30px] border border-white bg-[#FFFFFF] ${
                   compact ? 'gap-3 p-4' : wide ? 'gap-3.5 p-6' : 'gap-3.5 p-5'
                 }`}
                 style={{
-                  shadowColor: '#314b3f',
+                  shadowColor: '#806D62',
                   shadowOffset: { width: 0, height: 10 },
                   shadowOpacity: 0.09,
                   shadowRadius: 24,
@@ -220,7 +220,7 @@ export default function AuthShell({
                   <Text
                     className={`${
                       compact ? 'text-[24px]' : 'text-[28px]'
-                    } font-bold tracking-tight text-[#243b38]`}
+                    } font-bold tracking-tight text-[#493A36]`}
                     style={{
                       fontFamily: Platform.select({
                         ios: 'Georgia',
@@ -231,7 +231,7 @@ export default function AuthShell({
                   >
                     {title}
                   </Text>
-                  <Text className="text-sm leading-5 text-[#71817b]">{subtitle}</Text>
+                  <Text className="text-sm leading-5 text-[#756B65]">{subtitle}</Text>
                 </View>
 
                 {children}

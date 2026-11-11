@@ -44,13 +44,13 @@ export default function CheckEmail() {
       showWelcomeAnimation
     >
       <View className="items-center gap-3 py-2">
-        <View className="h-14 w-14 items-center justify-center rounded-2xl bg-[#e6f0e9]">
-          <Ionicons name="mail-open-outline" size={28} color="#246b61" />
+        <View className="h-14 w-14 items-center justify-center rounded-2xl bg-[#F4E7DC]">
+          <Ionicons name="mail-open-outline" size={28} color="#8B563D" />
         </View>
-        <Text className="text-center text-base font-bold text-[#243b38]">
+        <Text className="text-center text-base font-bold text-[#493A36]">
           {email || 'Abre el mensaje de confirmación que te enviamos.'}
         </Text>
-        <Text className="text-center text-sm leading-5 text-[#71817b]">
+        <Text className="text-center text-sm leading-5 text-[#756B65]">
           Abre el enlace de confirmación en el navegador y pulsa Confirmar. Después vuelve a
           StockYa e inicia sesión. Si no llega, revisa spam: el SMTP de prueba de Supabase solo
           entrega a correos autorizados del equipo y tiene un límite de envíos. Para usar Gmail

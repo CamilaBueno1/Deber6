@@ -36,10 +36,10 @@ export default function CloseDayModal({
 
   return (
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
-      <View className="flex-1 items-center justify-center bg-[#243b38]/55 px-6">
+      <View className="flex-1 items-center justify-center bg-[#493A36]/55 px-6">
         <Animated.View style={[{ width: '100%', maxWidth: 380 }, cardStyle]}>
-          <View className="w-full items-center gap-2 rounded-[28px] border border-white bg-[#fffefa] p-6">
-            <View className="h-32 w-32 items-center justify-center rounded-full bg-[#e6f0e9]/50">
+          <View className="w-full items-center gap-2 rounded-[28px] border border-white bg-[#FFFFFF] p-6">
+            <View className="h-32 w-32 items-center justify-center rounded-full bg-[#F4E7DC]/50">
               <LottieView
                 source={require('../../../../assets/lottie/success.json')}
                 autoPlay
@@ -48,8 +48,8 @@ export default function CloseDayModal({
                 webStyle={{ width: 128, height: 128 }}
               />
             </View>
-            <Text className="text-2xl font-extrabold text-[#243b38]">¡Jornada cerrada!</Text>
-            <Text className="text-sm text-[#71817b]">Resultado operativo registrado</Text>
+            <Text className="text-2xl font-extrabold text-[#493A36]">¡Jornada cerrada!</Text>
+            <Text className="text-sm text-[#756B65]">Resultado operativo registrado</Text>
             {resultadoOperativo === null ? (
               <Text className="text-center text-base font-bold text-[#9a6b19]">
                 {ventasSinCosto > 0
@@ -65,10 +65,10 @@ export default function CloseDayModal({
                 {money(resultadoOperativo)}
               </Text>
             )}
-            <View className="my-2 w-full rounded-2xl bg-[#f4efe4] px-4 py-3">
-              <Text className="text-center text-sm font-semibold text-[#5d706c]">
+            <View className="my-2 w-full rounded-2xl bg-[#F8EDE0] px-4 py-3">
+              <Text className="text-center text-sm font-semibold text-[#6E625C]">
                 Efectivo final en caja:{' '}
-                <Text className="font-extrabold text-[#243b38]">{money(cajaFinal)}</Text>
+                <Text className="font-extrabold text-[#493A36]">{money(cajaFinal)}</Text>
               </Text>
             </View>
             <Button

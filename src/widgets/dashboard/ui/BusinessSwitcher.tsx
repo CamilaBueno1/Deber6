@@ -31,12 +31,12 @@ function BusinessPill({
           scale.set(withSpring(1, { damping: 14, stiffness: 260 }));
         }}
         className={`flex-row items-center gap-2 rounded-full border px-3.5 py-2 ${
-          activo ? 'border-[#1e5b4d] bg-[#1e5b4d]' : 'border-[#e5e8df] bg-[#fffefa]'
+          activo ? 'border-[#D97955] bg-[#D97955]' : 'border-[#EFE3DA] bg-[#FFFFFF]'
         }`}
         style={
           activo
             ? {
-                shadowColor: '#246b61',
+                shadowColor: '#8B563D',
                 shadowOffset: { width: 0, height: 3 },
                 shadowOpacity: 0.2,
                 shadowRadius: 6,
@@ -45,8 +45,8 @@ function BusinessPill({
             : undefined
         }
       >
-        <Ionicons name={iconoNegocio(negocio.emoji)} size={16} color={activo ? '#ffffff' : '#246b61'} />
-        <Text className={`text-xs font-bold ${activo ? 'text-white' : 'text-[#485b57]'}`}>
+        <Ionicons name={iconoNegocio(negocio.emoji)} size={16} color={activo ? '#ffffff' : '#8B563D'} />
+        <Text className={`text-xs font-bold ${activo ? 'text-white' : 'text-[#6D5A52]'}`}>
           {negocio.nombre}
         </Text>
       </Pressable>
@@ -82,10 +82,10 @@ export default function BusinessSwitcher() {
           onPressOut={() => {
             newScale.set(withSpring(1, { damping: 14, stiffness: 260 }));
           }}
-          className="flex-row items-center gap-1 rounded-full border border-dashed border-[#348a76] bg-[#eef5f0] px-3.5 py-2"
+          className="flex-row items-center gap-1 rounded-full border border-dashed border-[#D97955] bg-[#FFF1E8] px-3.5 py-2"
         >
-          <Ionicons name="add-circle-outline" size={16} color="#246b61" />
-          <Text className="text-xs font-bold text-[#246b61]">Nuevo</Text>
+          <Ionicons name="add-circle-outline" size={16} color="#8B563D" />
+          <Text className="text-xs font-bold text-[#8B563D]">Nuevo</Text>
         </Pressable>
       </Animated.View>
     </ScrollView>

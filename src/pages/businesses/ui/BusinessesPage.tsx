@@ -48,7 +48,7 @@ export default function NegociosScreen() {
     );
 
   return (
-    <View className="flex-1 bg-[#f3f8f2]">
+    <View className="flex-1 bg-[#FFFAF5]">
       <Header
         eyebrow="Tus emprendimientos"
         title="Mis negocios"
@@ -78,7 +78,7 @@ export default function NegociosScreen() {
           </Card>
         ) : (
           <View className="gap-3">
-            <Text className="px-1 text-xs font-bold uppercase tracking-wider text-[#5d706c]">
+            <Text className="px-1 text-xs font-bold uppercase tracking-wider text-[#6E625C]">
               Toca un negocio para activarlo ({negocios.length})
             </Text>
             {negocios.map((n) => (

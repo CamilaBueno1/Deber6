@@ -3,14 +3,14 @@ import { colors } from './theme';
 
 export const TIPOS: Record<
   Tipo,
-  { label: string; boton: string; color: string; icon: 'cart' | 'flash' | 'basket'; placeholder: string; signo: '+' | '-' }
+  { label: string; boton: string; color: string; icon: 'cart' | 'flash' | 'basket' | 'cash'; placeholder: string; signo: '+' | '-' }
 > = {
   venta: {
-    label: 'Venta',
-    boton: 'Venta',
+    label: 'Otro ingreso',
+    boton: 'Ingreso',
     color: colors.brand,
     icon: 'cart',
-    placeholder: '¿Qué pidió el cliente? (ej. 2 almuerzos)',
+    placeholder: 'Ingreso sin producto de inventario (ej. un servicio)',
     signo: '+',
   },
   gasto: {
@@ -28,6 +28,14 @@ export const TIPOS: Record<
     icon: 'basket',
     placeholder: '¿Qué compraste? (ej. aceite, harina)',
     signo: '-',
+  },
+  abono: {
+    label: 'Abono de deuda',
+    boton: 'Abono',
+    color: colors.brandDark,
+    icon: 'cash',
+    placeholder: 'Abono de una cuenta por cobrar',
+    signo: '+',
   },
 };
 

@@ -1,5 +1,10 @@
 import { supabase } from '@/shared/lib/supabase';
 import { listarVentasDelPeriodo } from '@/entities/sale/api/ventas';
+import {
+  listarAbonosDelPeriodo,
+  requiereMigracionCuentasPorCobrar,
+} from '@/entities/cash/api/cuentasPorCobrar';
+import type { AbonoCuenta } from '@/entities/cash/api/cuentasPorCobrar';
 import type { Movimiento, MovimientoInput } from '@/shared/types';
 
 const normalizar = (m: any): Movimiento => ({
@@ -33,21 +38,82 @@ export async function listarActividadCaja(
     listarMovimientos(negocioId, desde, hasta),
     listarVentasDelPeriodo(negocioId, desde, hasta ?? '9999-12-31'),
   ]);
+  let abonos: AbonoCuenta[] = [];
+  try {
+    abonos = await listarAbonosDelPeriodo(negocioId, desde, hasta ?? '9999-12-31');
+  } catch (error) {
+    if (!requiereMigracionCuentasPorCobrar(error)) throw error;
+  }
 
-  const movimientosDeVentas: Movimiento[] = ventas.map((venta) => ({
-    id: `venta:${venta.id}`,
-    negocio_id: venta.negocio_id,
-    fecha: venta.fecha,
-    tipo: 'venta',
-    concepto: venta.producto_nombre,
-    cliente: null,
-    monto: venta.total,
-    costo_directo: venta.costo_unitario * venta.cantidad,
-    created_at: venta.created_at,
-    origen: 'venta',
+  const ventasPorTicket = new Map<string, typeof ventas>();
+  const ventasSinTicket = [];
+  for (const venta of ventas) {
+    if (!venta.ticket_id) {
+      ventasSinTicket.push(venta);
+      continue;
+    }
+    const ticket = ventasPorTicket.get(venta.ticket_id) ?? [];
+    ticket.push(venta);
+    ventasPorTicket.set(venta.ticket_id, ticket);
+  }
+
+  const movimientosDeVentas: Movimiento[] = [
+    ...ventasSinTicket.map((venta) => ({
+      id: `venta:${venta.id}`,
+      negocio_id: venta.negocio_id,
+      fecha: venta.fecha,
+      tipo: 'venta' as const,
+      concepto: venta.producto_nombre,
+      cliente: venta.cliente ?? null,
+      monto: venta.total,
+      costo_directo: venta.costo_unitario * venta.cantidad,
+      created_at: venta.created_at,
+      origen: 'venta' as const,
+      metodo_pago: venta.metodo_pago ?? 'efectivo',
+    })),
+    ...[...ventasPorTicket.entries()].map(([ticketId, lineas]) => {
+      const primerItem = lineas[0];
+      const productos = lineas.map(
+        (linea) => `${linea.producto_nombre} × ${linea.cantidad}`,
+      );
+      return {
+        id: `ticket:${ticketId}`,
+        negocio_id: primerItem.negocio_id,
+        fecha: primerItem.fecha,
+        tipo: 'venta' as const,
+        concepto: productos.join(', '),
+        cliente: primerItem.cliente ?? null,
+        monto: lineas.reduce((total, linea) => total + linea.total, 0),
+        costo_directo: lineas.reduce(
+          (total, linea) => total + linea.costo_unitario * linea.cantidad,
+          0,
+        ),
+        created_at: lineas.reduce(
+          (masReciente, linea) =>
+            linea.created_at > masReciente ? linea.created_at : masReciente,
+          primerItem.created_at,
+        ),
+        origen: 'venta' as const,
+        metodo_pago: primerItem.metodo_pago ?? 'efectivo',
+      };
+    }),
+  ];
+
+  const movimientosDeAbonos: Movimiento[] = abonos.map((abono) => ({
+    id: `abono:${abono.id}`,
+    negocio_id: abono.negocio_id,
+    fecha: abono.fecha,
+    tipo: 'abono',
+    concepto: 'Abono recibido',
+    cliente: abono.cliente,
+    monto: abono.monto,
+    costo_directo: null,
+    created_at: abono.created_at,
+    origen: 'abono',
+    metodo_pago: abono.metodo_pago,
   }));
 
-  return [...movimientos, ...movimientosDeVentas].sort(
+  return [...movimientos, ...movimientosDeVentas, ...movimientosDeAbonos].sort(
     (a, b) => b.created_at.localeCompare(a.created_at),
   );
 }

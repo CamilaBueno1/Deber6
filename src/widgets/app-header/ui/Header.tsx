@@ -49,20 +49,20 @@ export default function Header({ title, eyebrow, children, rightAction, avatar, 
 
   return (
     <View
-      className="bg-[#f3f8f2] px-5 pb-3.5"
+      className="bg-[#FFFAF5] px-5 pb-3.5"
       style={{ paddingTop: insets.top + 10 }}
     >
       <View className="flex-row items-center justify-between gap-3">
         <Animated.View style={[{ flex: 1 }, titleStyle]}>
           <View className="gap-0.5">
             {eyebrow ? (
-              <Text className="text-[10px] font-extrabold uppercase tracking-[1.4px] text-[#16896a]">
+              <Text className="text-[10px] font-extrabold uppercase tracking-[1.4px] text-[#D97955]">
                 {eyebrow}
               </Text>
             ) : null}
             <Text
               numberOfLines={1}
-              className="text-[26px] font-extrabold tracking-tight text-[#173a32]"
+              className="text-[26px] font-extrabold tracking-tight text-[#493A36]"
               style={{
                 fontFamily: Platform.select({ ios: 'Georgia', android: 'serif', default: 'Georgia' }),
               }}
@@ -86,16 +86,16 @@ export default function Header({ title, eyebrow, children, rightAction, avatar, 
                   btnScale.set(withSpring(1, { damping: 14, stiffness: 260 }));
                 }}
                 className={`h-10 flex-row items-center gap-1.5 rounded-2xl border px-3.5 ${
-                  isDanger ? 'border-[#f1d0c8] bg-[#fff4f0]' : 'border-[#e5e8df] bg-[#fffefa]'
+                  isDanger ? 'border-[#f1d0c8] bg-[#fff4f0]' : 'border-[#EFE3DA] bg-[#FFFFFF]'
                 }`}
               >
                 <Ionicons
                   name={rightAction.icon}
                   size={17}
-                  color={                  isDanger ? '#c4533d' : '#16896a'}
+                  color={                  isDanger ? '#c4533d' : '#D97955'}
                 />
                 <Text
-                  className={`text-xs font-extrabold ${isDanger ? 'text-[#b84c37]' : 'text-[#193d35]'}`}
+                  className={`text-xs font-extrabold ${isDanger ? 'text-[#b84c37]' : 'text-[#493A36]'}`}
                 >
                   {rightAction.label}
                 </Text>
@@ -115,9 +115,9 @@ export default function Header({ title, eyebrow, children, rightAction, avatar, 
                 onPressOut={() => {
                   avatarScale.set(withSpring(1, { damping: 12, stiffness: 260 }));
                 }}
-                className="h-10 w-10 items-center justify-center rounded-2xl border border-white bg-[#16896a]"
+                className="h-10 w-10 items-center justify-center rounded-2xl border border-white bg-[#D97955]"
                 style={{
-                  shadowColor: '#125b49',
+                  shadowColor: '#A95743',
                   shadowOffset: { width: 0, height: 3 },
                   shadowOpacity: 0.14,
                   shadowRadius: 6,

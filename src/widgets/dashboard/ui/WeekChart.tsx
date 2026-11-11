@@ -74,19 +74,19 @@ export default function WeekChart({ movimientos }: { movimientos: Movimiento[] }
     <Card delay={180} className="gap-3.5">
       <View className="flex-row items-center justify-between">
         <View>
-          <Text className="text-base font-bold text-[#243b38]">Actividad de la semana</Text>
-          <Text className="text-xs text-[#71817b]">
+          <Text className="text-base font-bold text-[#493A36]">Actividad de la semana</Text>
+          <Text className="text-xs text-[#756B65]">
             Ventas {money(totalVentas)} · Gastos {money(totalEgresos)}
           </Text>
         </View>
         <View className="flex-row items-center gap-3">
           <View className="flex-row items-center gap-1.5">
             <View className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: colors.brand }} />
-            <Text className="text-xs font-medium text-[#71817b]">Ventas</Text>
+            <Text className="text-xs font-medium text-[#756B65]">Ventas</Text>
           </View>
           <View className="flex-row items-center gap-1.5">
             <View className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: colors.accent }} />
-            <Text className="text-xs font-medium text-[#71817b]">Gastos</Text>
+            <Text className="text-xs font-medium text-[#756B65]">Gastos</Text>
           </View>
         </View>
       </View>
@@ -108,12 +108,12 @@ export default function WeekChart({ movimientos }: { movimientos: Movimiento[] }
             </View>
             <View
               className={`rounded-full px-1.5 py-0.5 ${
-                d.esHoy ? 'bg-[#246b61]' : 'bg-transparent'
+                d.esHoy ? 'bg-[#8B563D]' : 'bg-transparent'
               }`}
             >
               <Text
                 className={`text-[10px] font-bold ${
-                  d.esHoy ? 'text-white' : 'text-[#71817b]'
+                  d.esHoy ? 'text-white' : 'text-[#756B65]'
                 }`}
               >
                 {d.esHoy ? 'Hoy' : d.inicial}
